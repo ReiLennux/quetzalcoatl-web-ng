@@ -1,0 +1,25 @@
+<div class="mb-4">
+    <label [for]="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+      {{ label }}
+    </label>
+    <input 
+      [id]="name" 
+      [name]="name" 
+      [type]="type"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [attr.minlength]="minLength"
+      [attr.maxlength]="maxLength"
+      [value]="value"
+      (input)="onInputChange($event)"
+      (blur)="onTouched()"
+      class="g-text-input"
+      required
+    />
+    <div *ngIf="validation">
+      <p class="error-message">
+        {{ label }} no puede ir vacío.
+      </p>
+    </div>
+  </div>
+  

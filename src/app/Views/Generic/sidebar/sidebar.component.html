@@ -1,0 +1,30 @@
+
+
+<div id="drawer-navigation"
+    class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
+    tabindex="-1"
+    aria-labelledby="drawer-navigation-label">
+    <span class="p-7 block"></span>
+    <div class="flex justify-between">
+        <h5 id="drawer-navigation-label" class="pl-2 text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Menu</h5>
+        <button
+        type="button"
+        data-drawer-hide="drawer-navigation"
+        aria-controls="drawer-navigation"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+        <i class="fa-solid fa-x"></i>
+        <span class="sr-only">Close menu</span>
+    </button>
+    </div>
+    
+    <br>
+    <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <ul class="space-y-2 font-medium">
+            <div *ngFor="let i of [1, 2, 4, 5, 7, 8]">
+                <app-menu-item></app-menu-item>
+            </div>
+        </ul>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
