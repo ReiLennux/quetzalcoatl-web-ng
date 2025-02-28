@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginView } from './Views/login/login.view';
+import { LoginView } from './Views/Login/login.view';
 import { DashboardView } from './Views/dashboard/dashboard.view';
 import { AuthGuard } from './auth.guard';
 

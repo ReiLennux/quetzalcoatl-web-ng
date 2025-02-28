@@ -11,22 +11,22 @@
   
           <!-- Campo de usuario -->
           <app-g-text 
-            formControlName="strName"
+            formControlName="correo"
             name="email"
             label="Usuario"
             placeholder="Nombre de usuario"
             type="text"
-            [validation]="loginForm.get('strName')!.invalid && loginForm.get('strName')!.touched">
+            [validation]="loginForm.get('correo')!.invalid && loginForm.get('correo')!.touched">
           </app-g-text>
         
           <!-- Campo de contraseña -->
           <app-g-text 
-            formControlName="strPassword"
+            formControlName="pwd"
             name="password"
             label="Contraseña"
             placeholder="•••••••••••"
             type="password"
-            [validation]="loginForm.get('strPassword')!.invalid && loginForm.get('strPassword')!.touched">
+            [validation]="loginForm.get('pwd')!.invalid && loginForm.get('pwd')!.touched">
           </app-g-text>
         
           <button type="submit" 

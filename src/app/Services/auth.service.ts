@@ -1,59 +1,55 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router'; 
-import { delay, Observable, of, tap } from 'rxjs';
+import { Observable, tap, catchError, throwError } from 'rxjs';
+import { Auth } from '../Models/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
-  private apiUrl = 'https://api-gateway-production-9080.up.railway.app';
 
-  constructor(
-    private router: Router,
-    private http: HttpClient
-  ) { }
+  private apiUrl = "https://api-gateway-production-9080.up.railway.app"; // Usa environment para manejar la URL
 
-  getData() {
-    return this.http.get(this.apiUrl + '/data');
+  private storageKeys = {
+    token: 'token',
+    role: 'role',
+    name: 'name',
+    email: 'email'
+  };
+
+  constructor(private http: HttpClient) {}
+
+  getData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/data`);
   }
 
-//   postData(userData: any): Observable<any> {
+  postData(userData: Auth): Observable<any> {
 
-//      localStorage.setItem('token', "00000000000000000000");
+    return this.http.post<any>(`${this.apiUrl}/login`, userData).pipe(
+      tap(response => {
+        if (response?.token) {
+          this.saveUserData(response);
+        }
+      }),
+      catchError(error => {
+        console.error('Error en autenticación:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
-//       const mockResponse = {
-//         success: true,
-//    message: 'Login exitoso',
-//   user: {
-//   name: userData.strName,
-//    email: userData.strPassword,
-//  },
-// };
+  logOut(): void {
+    Object.values(this.storageKeys).forEach(key => localStorage.removeItem(key));
+  }
 
-// this.router.navigate(['/']);
-// return of(mockResponse).pipe(delay(200000)); 
-//   }
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem(this.storageKeys.token);
+  }
 
-   postData(userData: any): Observable<any> {
-    const {strName, strPassword} = userData;
-     return this.http.post<any>(this.apiUrl + '/login', {pwd : strPassword, correo: strName  }).pipe(
-       tap((response: { token: string; }) => {
-         if (response && response.token) {
-           localStorage.setItem('token', response.token);
-         }
-         localStorage.setItem('name', userData.strName);
-         localStorage.setItem('email', userData.strEmail);
-        
-         this.router.navigate(['/']);
-       })
-     );
-   }
-  
-
-  logOut() {
-    localStorage.removeItem('token');
+  private saveUserData({ token, rol, nombre, email }: { token: string; rol: string; nombre: string, email: string }): void {
+    localStorage.setItem(this.storageKeys.token, token);
+    localStorage.setItem(this.storageKeys.role, rol);
+    localStorage.setItem(this.storageKeys.name, nombre);
+    localStorage.setItem(this.storageKeys.email, email);
   }
 }
-

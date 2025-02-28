@@ -14,8 +14,8 @@ export class LoginView {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
-      strName: ['', [Validators.required, Validators.minLength(3)]],
-      strPassword: ['', [Validators.required, Validators.minLength(6)]],
+      correo: ['', [Validators.required, Validators.email]],
+      pwd: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 

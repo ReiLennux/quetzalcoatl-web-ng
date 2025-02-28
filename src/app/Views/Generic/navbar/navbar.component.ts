@@ -8,7 +8,10 @@ import { AuthService } from '../../../Services/auth.service';
 })
 export class NavbarComponent {
 
-  email = localStorage.getItem('name');
+  nombre = localStorage.getItem('nombre');
+  email = localStorage.getItem('email');
+  rol = localStorage.getItem('rol');
+
    constructor(private authService: AuthService) { }
   
     logOut() {
