@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,13 @@ export class LoginView {
   loginForm: FormGroup;
   isSubmitting: boolean = false; 
   errorMessage: string = '';
-
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  router: Router;
+  constructor(private fb: FormBuilder, private authService: AuthService, router: Router) {
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
       pwd: ['', [Validators.required, Validators.minLength(6)]]
     });
+    this.router = router;
   }
 
   postData() {
@@ -32,6 +34,7 @@ export class LoginView {
       (response: any) => {
         console.log('Respuesta del servidor:', response);
         this.isSubmitting = false;
+        this.router.navigate(['/dashboard']);
       },
       (error: any) => {
         console.error('Error en la solicitud:', error);

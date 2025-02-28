@@ -28,6 +28,7 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, userData).pipe(
       tap(response => {
         if (response?.token) {
+          response.email = userData.correo;
           this.saveUserData(response);
         }
       }),
