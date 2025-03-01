@@ -11,7 +11,7 @@ import { SidebarComponent } from './Views/Generic/sidebar/sidebar.component';
 import { MenuItemItem } from './Views/Generic/sidebar/menu-item/menu-item.item';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GTextInput } from './Views/Generic/inputs/g-text/g-text.input';
-import { SucursalesView } from './Views/Sucursales/sucursales.view';
+import { SubsidiariesView } from './Views/subsidiaries/subsidiaries.view';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { SucursalesView } from './Views/Sucursales/sucursales.view';
     SidebarComponent,
     MenuItemItem,
     GTextInput,
-    SucursalesView
+    SubsidiariesView
   ],
   imports: [
     BrowserModule,
