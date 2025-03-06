@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   title = 'quetzalcoatl-web-ng';
-  showLayout: boolean = true;
+  showLayout = true;
 
   constructor(private flowbiteService: FlowbiteService, private router: Router) {
     this.router.events.subscribe(() => {

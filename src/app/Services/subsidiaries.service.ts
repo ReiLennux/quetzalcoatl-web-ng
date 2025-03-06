@@ -43,7 +43,7 @@ export class SubsidiariesService {
 
   ]
 
-  getData(): Observable<object> {
+  getData(): Observable<Subsidiary[]> {
       return of(this.subsidiaries);
     }
 
@@ -60,6 +60,24 @@ export class SubsidiariesService {
       throw new Error('No se encontró la sucursal');
     }
     return of(res);
+  }
+
+  putData(subsidiary: Subsidiary): Observable<object> {
+    const index = this.subsidiaries.findIndex(subsidiary => subsidiary.id === subsidiary.id);
+    if (index === -1) {
+      throw new Error('No se encontró la sucursal');
+    }
+    this.subsidiaries[index] = subsidiary;
+    return of(subsidiary);
+  }
+
+  deleteData(id: number): Observable<object> {
+    const index = this.subsidiaries.findIndex(subsidiary => subsidiary.id === id);
+    if (index === -1) {
+      throw new Error('No se encontró la sucursal');
+    }
+    this.subsidiaries.splice(index, 1);
+    return of(this.subsidiaries);
   }
   
 

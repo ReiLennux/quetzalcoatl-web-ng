@@ -15,8 +15,12 @@ export class SubsidiariesViewComponent implements OnInit {
   constructor(private subsidiaryService: SubsidiariesService) {}
 
   ngOnInit() {
-    this.subsidiaryService.getData().subscribe((data: any) => {
+    this.subsidiaryService.getData().subscribe((data: Subsidiary[]) => {
       this.subsidiaries = data;
     });
+  }
+
+  deleteSubsidiary(subsidiary: Subsidiary) {
+    this.subsidiaries = this.subsidiaries?.filter(s => s.id!== subsidiary.id);
   }
 }

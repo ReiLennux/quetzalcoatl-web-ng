@@ -46,7 +46,7 @@
                         <app-g-edit url="manager" [id]="subsidiary.id"></app-g-edit>
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
+                            <app-g-delete [id]="subsidiary.id" (confirmDeletion)="deleteSubsidiary(subsidiary)"></app-g-delete>
                         </td>
                     </tr>
 

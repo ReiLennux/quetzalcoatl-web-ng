@@ -18,6 +18,8 @@ import { GPaginatorComponent } from './Views/Generic/pagination/g-paginator/g-pa
 import { SubsidiariesManagerComponent } from './Views/subsidiaries/subsidiaries.manager';
 import { GEditButtonComponent } from './Views/Generic/buttons/g-edit/g-edit.button';
 import { GSelectInputComponent } from './Views/Generic/inputs/g-select/g-select.input';
+import { SanitizeHtmlDirective } from './sanitize-html.directive';
+import { GDeleteButtonComponent } from './Views/Generic/buttons/g-delete/g-delete.button';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { GSelectInputComponent } from './Views/Generic/inputs/g-select/g-select.
     GPaginatorComponent,
     SubsidiariesManagerComponent,
     GEditButtonComponent,
-    GSelectInputComponent
+    GSelectInputComponent,
+    SanitizeHtmlDirective,
+    GDeleteButtonComponent
   ],
   imports: [
     BrowserModule,

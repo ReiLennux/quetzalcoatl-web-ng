@@ -75,7 +75,11 @@ export class SubsidiariesManagerComponent implements OnInit {
       return;
     }
     console.log(this.subsidiaryForm.value);
-    this.subsidiariesService.postData(this.subsidiaryForm.value);
+    if (this.id > 0) {
+      this.subsidiariesService.putData(this.subsidiaryForm.value);
+    } else {
+      this.subsidiariesService.postData(this.subsidiaryForm.value);
+    }
     this.router.navigate(['/subsidiaries']);
   }
 }

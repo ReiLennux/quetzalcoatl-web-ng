@@ -17,8 +17,6 @@ export class AuthGuard implements CanActivate {
       const isLoggedIn = localStorage.getItem('token');
       if (isLoggedIn ) {
         return true;
-      }else {
-        return true;
       }
     }
 
