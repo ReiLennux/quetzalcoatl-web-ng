@@ -1,1 +1,16 @@
-{}
+{
+  "hosting": {
+    "public": "dist/quetzalcoatl-web-ng",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
