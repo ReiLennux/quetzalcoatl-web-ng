@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../Services/auth.service';
 
 @Component({
@@ -6,15 +6,23 @@ import { AuthService } from '../../../Services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-  nombre = localStorage.getItem('name');
-  email = localStorage.getItem('email');
-  rol = localStorage.getItem('role');
+  nombre: string | null = null;
+  email: string | null = null;
+  rol: string | null = null;
 
-   constructor(private authService: AuthService) { }
-  
-    logOut() {
-      this.authService.logOut();
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      this.nombre = localStorage.getItem('name');
+      this.email = localStorage.getItem('email');
+      this.rol = localStorage.getItem('role');
     }
+  }
+
+  logOut() {
+    this.authService.logOut();
+  }
 }

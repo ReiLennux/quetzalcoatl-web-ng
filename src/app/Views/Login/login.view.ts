@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LoginView {
   loginForm: FormGroup;
-  isSubmitting: boolean = false; 
-  errorMessage: string = '';
+  isSubmitting = false; 
+  errorMessage = '';
   router: Router;
   constructor(private fb: FormBuilder, private authService: AuthService, router: Router) {
     this.loginForm = this.fb.group({
@@ -36,8 +36,8 @@ export class LoginView {
         this.isSubmitting = false;
         this.router.navigate(['/dashboard']);
       },
-      (error: any) => {
-        console.error('Error en la solicitud:', error);
+      (error: { message: string }) => {
+        console.error('Error en la solicitud:', error.message);
         this.errorMessage = 'Error en el inicio de sesión. Verifica tus credenciales.';
         this.isSubmitting = false;
       }

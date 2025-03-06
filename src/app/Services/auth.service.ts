@@ -19,7 +19,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  getData(): Observable<any> {
+  getData(): Observable<object> {
     return this.http.get(`${this.apiUrl}/data`);
   }
 

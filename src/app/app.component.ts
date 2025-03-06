@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FlowbiteService } from './Services/Styles/flowbite.service';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,8 +9,13 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AppComponent implements OnInit{
   title = 'quetzalcoatl-web-ng';
-  
-  constructor(private flowbiteService: FlowbiteService) {}
+  showLayout: boolean = true;
+
+  constructor(private flowbiteService: FlowbiteService, private router: Router) {
+    this.router.events.subscribe(() => {
+      this.showLayout = this.router.url !== '/login';
+    });
+  }
   
   ngOnInit() {
     this.flowbiteService.initFlowbite();

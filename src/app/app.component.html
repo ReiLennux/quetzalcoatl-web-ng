@@ -1,3 +1,5 @@
-<div >
+<div>
+    <app-navbar *ngIf="showLayout"></app-navbar>
+    <app-sidebar *ngIf="showLayout"></app-sidebar>
     <router-outlet></router-outlet>
 </div>

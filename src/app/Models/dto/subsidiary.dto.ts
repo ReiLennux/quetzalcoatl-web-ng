@@ -6,7 +6,7 @@ export interface Subsidiary {
     phone: string;
     status: string;
     email: string;
-    Type: string;
+    type: string;
 }
 
-export const SubsidiaryColumns = ["Clave", "Direccion", "Gerente", "Telefono", "Estado", "Correo", "Tipo" ];
+export const SubsidiaryColumn = ["Clave", "Direccion", "Gerente", "Telefono", "Estado", "Correo", "Tipo", "Editar", "Eliminar"];

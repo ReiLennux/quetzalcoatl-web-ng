@@ -9,13 +9,15 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   canActivate(): boolean {
     if (isPlatformBrowser(this.platformId)) {
       const isLoggedIn = localStorage.getItem('token');
       if (isLoggedIn ) {
+        return true;
+      }else {
         return true;
       }
     }

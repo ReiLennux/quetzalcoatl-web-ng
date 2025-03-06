@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginView } from './Views/Login/login.view';
-import { DashboardView } from './Views/dashboard/dashboard.view';
+import { DashboardViewComponent } from './Views/dashboard/dashboard.view';
 import { AuthGuard } from './auth.guard';
 import { SubsidiariesView } from './Views/subsidiaries/subsidiaries.view';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path:'dashboard',
-    component: DashboardView,
+    component: DashboardViewComponent,
     canActivate: [AuthGuard]
   },
   {

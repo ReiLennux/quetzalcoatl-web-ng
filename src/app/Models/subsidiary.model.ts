@@ -6,6 +6,6 @@ export interface Subsidiary {
     phone: string;
     status: string;
     email: string;
-    Type: string;
+    type: string;
 
 }

@@ -20,8 +20,8 @@
     <br>
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
-            <div *ngFor="let i of [1, 2, 4, 5, 7, 8]">
-                <app-menu-item></app-menu-item>
+            <div *ngFor="let module of modules">
+                <app-menu-item [module]="module"></app-menu-item>
             </div>
         </ul>
     </div>
