@@ -7,7 +7,7 @@ import { Subsidiary } from '../Models/subsidiary.model';
 })
 export class SubsidiariesService {
 
-  constructor() { }
+  //constructor() {}
 
   subsidiaries: Subsidiary[] = [
     {
@@ -46,4 +46,21 @@ export class SubsidiariesService {
   getData(): Observable<object> {
       return of(this.subsidiaries);
     }
+
+  postData(subsidiary: Subsidiary): Observable<object> {
+    subsidiary.id = Date.now();
+    subsidiary.key = 'key';
+    this.subsidiaries.push(subsidiary);
+    return of(subsidiary);
+  }
+
+  getById(id: number): Observable<Subsidiary> {
+    const res = (this.subsidiaries.find(subsidiary => subsidiary.id === id));
+    if (!res) {
+      throw new Error('No se encontró la sucursal');
+    }
+    return of(res);
+  }
+  
+
 }

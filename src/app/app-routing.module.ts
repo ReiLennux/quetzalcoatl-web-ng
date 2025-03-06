@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginView } from './Views/Login/login.view';
+import { LoginViewComponent } from './Views/Login/login.view';
 import { DashboardViewComponent } from './Views/dashboard/dashboard.view';
 import { AuthGuard } from './auth.guard';
-import { SubsidiariesView } from './Views/subsidiaries/subsidiaries.view';
+import { SubsidiariesViewComponent } from './Views/subsidiaries/subsidiaries.view';
+import { SubsidiariesManagerComponent } from './Views/subsidiaries/subsidiaries.manager';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginView
+    component: LoginViewComponent
   },
   {
     path:'dashboard',
@@ -17,7 +18,17 @@ const routes: Routes = [
   },
   {
     path: 'subsidiaries',
-    component: SubsidiariesView,
+    component: SubsidiariesViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path:'subsidiaries/manager',
+    component: SubsidiariesManagerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'subsidiaries/manager/:id',
+    component: SubsidiariesManagerComponent,
     canActivate: [AuthGuard]
   },
   {

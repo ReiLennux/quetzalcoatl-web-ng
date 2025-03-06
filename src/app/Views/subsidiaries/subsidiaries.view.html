@@ -3,10 +3,10 @@
     class="m-auto block w-5/6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm  dark:bg-gray-800 dark:border-gray-700">
     <div>
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Sucursales</h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400">Agrega una sucursal</p>
+        <p class="font-normal text-gray-700 dark:text-gray-400">Listado de sucursales</p>
     </div>
     <div class="w-full flex justify-end p-4">
-        <app-g-add name="sucursal" url="/subsidiaries"></app-g-add>
+        <app-g-add name="sucursal" url="manager"></app-g-add>
     </div>
     <div class="m-2">
         <div class="m-2 relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -43,7 +43,7 @@
                             {{subsidiary.type}}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                        <app-g-edit url="manager" [id]="subsidiary.id"></app-g-edit>
                         </td>
                         <td class="px-6 py-4">
                             <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>

@@ -1,3 +1,77 @@
-<div class="">
-    
+<div class="w-full h-screen flex justify-center items-center">
+
+    <div
+        class="m-auto block w-2/6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <button type="button" 
+                [routerLink]="['/subsidiaries']"
+                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-500 rounded-lg">
+            <i class="fa-solid fa-arrow-left mr-3"></i>
+            Regresar
+            </button>
+        <div class="flex items-center justify-start">
+            <div>
+                    <i class="fa-solid fa-shop fa-2xl mr-3"></i>
+            </div>
+            
+            <div>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Sucursales</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400">{{id ? 'Edita' : 'Agrega'}} una sucursal</p>
+            </div>
+        </div>
+        <form [formGroup]="subsidiaryForm" (ngSubmit)="onSubmit()">
+            <div class="grid gap-4 md:grid-cols-2 mb-8">
+                <div>
+                    <app-g-text formControlName="key" name="key" label="Clave" placeholder="Clave" type="text"
+                        [disabled]="true" [readOnly]="true"
+                        [validation]="subsidiaryForm.get('key')!.invalid && subsidiaryForm.get('key')!.touched"
+                        [errorMessage]="getErrorMessage('key')">
+                    </app-g-text>
+                </div>
+                <div>
+                    <app-g-text formControlName="address" name="address" label="Direccion"
+                        placeholder="Direccion de la sucursal" type="text"
+                        [validation]="subsidiaryForm.get('address')!.invalid && subsidiaryForm.get('address')!.touched"
+                        [errorMessage]="getErrorMessage('address')">
+                    </app-g-text>
+                </div>
+                <div>
+                    <app-g-text formControlName="manager" name="manager" label="Encargado"
+                        placeholder="Nombre Completo de Encargado" type="text"
+                        [validation]="subsidiaryForm.get('manager')!.invalid && subsidiaryForm.get('manager')!.touched"
+                        [errorMessage]="getErrorMessage('manager')">
+                    </app-g-text>
+                </div>
+                <div>
+                    <app-g-text formControlName="phone" name="phone" label="Telefono"
+                        placeholder="Telefono de la sucursal" type="text"
+                        [validation]="subsidiaryForm.get('phone')!.invalid && subsidiaryForm.get('phone')!.touched"
+                        [errorMessage]="getErrorMessage('phone')">
+                    </app-g-text>
+                </div>
+                <div>
+                    <app-g-text formControlName="email" name="email" label="Correo electronico"
+                        placeholder="Correo electronico de la sucursal" type="text"
+                        [validation]="subsidiaryForm.get('email')!.invalid && subsidiaryForm.get('email')!.touched"
+                        [errorMessage]="getErrorMessage('email')">
+                    </app-g-text>
+                </div>
+                <div class="self-center" >
+                    <app-g-select formControlName="status" name="status" label="Estatus" [options]="statuses"
+                        [validation]="subsidiaryForm.get('status')!.invalid && subsidiaryForm.get('status')!.touched"
+                        [errorMessage]="getErrorMessage('status')">
+                    </app-g-select>
+                </div>
+                <div class="self-center">
+                    <app-g-select formControlName="type" name="type" label="Tipo" [options]="types"
+                        [validation]="subsidiaryForm.get('type')!.invalid && subsidiaryForm.get('type')!.touched"
+                        [errorMessage]="getErrorMessage('type')">
+                    </app-g-select>
+                </div>
+            </div>
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Guardar
+            </button>
+        </form>
+    </div>
 </div>

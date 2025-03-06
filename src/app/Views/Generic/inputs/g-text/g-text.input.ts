@@ -24,6 +24,8 @@ export class GTextInput implements ControlValueAccessor {
   @Input() minLength = 0;
   @Input() maxLength = 255;
   @Input() label = '';
+  @Input() readOnly = false;
+  @Input() errorMessage = '';
   
   @Output() valueChange = new EventEmitter<string>();
 

@@ -8,7 +8,7 @@ import { Subsidiary } from '../../Models/subsidiary.model';
   templateUrl: './subsidiaries.view.html',
   styleUrl: './subsidiaries.view.css'
 })
-export class SubsidiariesView implements OnInit {
+export class SubsidiariesViewComponent implements OnInit {
   columnsName = SubsidiaryColumn;
   subsidiaries: Subsidiary[] | undefined;
   

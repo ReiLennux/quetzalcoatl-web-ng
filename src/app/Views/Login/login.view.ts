@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.view.html',
   styleUrl: './login.view.css'
 })
-export class LoginView {
+export class LoginViewComponent {
   loginForm: FormGroup;
   isSubmitting = false; 
   errorMessage = '';
@@ -31,8 +31,8 @@ export class LoginView {
     this.errorMessage = '';
 
     this.authService.postData(this.loginForm.value).subscribe(
-      (response: any) => {
-        console.log('Respuesta del servidor:', response);
+      (response: { data: any }) => {
+        console.log('Respuesta del servidor:', response.data);
         this.isSubmitting = false;
         this.router.navigate(['/dashboard']);
       },
