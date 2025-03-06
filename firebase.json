@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/quetzalcoatl-web-ng",
+    "public": "dist/quetzalcoatl-web-ng/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
