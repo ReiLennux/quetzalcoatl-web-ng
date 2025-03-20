@@ -5,6 +5,8 @@ import { DashboardViewComponent } from './Views/dashboard/dashboard.view';
 import { AuthGuard } from './auth.guard';
 import { SubsidiariesViewComponent } from './Views/subsidiaries/subsidiaries.view';
 import { SubsidiariesManagerComponent } from './Views/subsidiaries/subsidiaries.manager';
+import { ProvidersViewComponent } from './Views/providers/providers.view';
+import { ProvidersManagerComponent } from './Views/providers/providers.manager';
 
 const routes: Routes = [
   {
@@ -29,6 +31,22 @@ const routes: Routes = [
   {
     path:'subsidiaries/manager/:id',
     component: SubsidiariesManagerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'providers',
+    component: ProvidersViewComponent,
+    canActivate: [AuthGuard]
+
+  },
+  {
+    path:'providers/manager',
+    component: ProvidersManagerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'providers/manager/:id',
+    component: ProvidersManagerComponent,
     canActivate: [AuthGuard]
   },
   {

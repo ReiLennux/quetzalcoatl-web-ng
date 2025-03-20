@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SubsidiaryColumn } from '../../Models/dto/subsidiary.dto';
 import { SubsidiariesService } from '../../Services/subsidiaries.service';
 import { Subsidiary } from '../../Models/subsidiary.model';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-subsidiaries',
   templateUrl: './subsidiaries.view.html',
-  styleUrl: './subsidiaries.view.css'
 })
 export class SubsidiariesViewComponent implements OnInit {
   columnsName = SubsidiaryColumn;
@@ -22,5 +21,10 @@ export class SubsidiariesViewComponent implements OnInit {
 
   deleteSubsidiary(subsidiary: Subsidiary) {
     this.subsidiaries = this.subsidiaries?.filter(s => s.id!== subsidiary.id);
+    Swal.fire({
+      title: "Drag me!",
+      icon: "success",
+      draggable: true
+    });
   }
 }

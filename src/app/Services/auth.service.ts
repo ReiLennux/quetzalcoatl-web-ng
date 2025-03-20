@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { Auth } from '../Models/auth.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +19,17 @@ export class AuthService {
     email: 'email'
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   getData(): Observable<object> {
     return this.http.get(`${this.apiUrl}/data`);
   }
 
   postData(userData: Auth): Observable<any> {
-
     return this.http.post<any>(`${this.apiUrl}/login`, userData).pipe(
       tap(response => {
         if (response?.token) {
-          response.email = userData.correo;
-          this.saveUserData(response);
+          this.createCookie('authToken', response.token);
         }
       }),
       catchError(error => {
@@ -40,12 +39,24 @@ export class AuthService {
     );
   }
 
-  logOut(): void {
-    Object.values(this.storageKeys).forEach(key => localStorage.removeItem(key));
+  createCookie(name: string, value: string, days = 1): void {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + days); 
+
+    this.cookieService.set(name, value, expirationDate, '/', '', true, 'Strict');
+
+  }
+
+  getToken(): string {
+    return this.cookieService.get('authToken');
+  }
+
+  logout(): void {
+    this.cookieService.delete('authToken');
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.storageKeys.token);
+    return this.cookieService.check('authToken');
   }
 
   private saveUserData({ token, rol, nombre, email }: { token: string; rol: string; nombre: string, email: string }): void {

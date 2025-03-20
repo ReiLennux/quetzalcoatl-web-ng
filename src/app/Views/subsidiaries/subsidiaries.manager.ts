@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubsidiariesService } from '../../Services/subsidiaries.service';
 import { Subsidiary } from '../../Models/subsidiary.model';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-subsidiaries',
   templateUrl: './subsidiaries.manager.html',
-  styleUrl: './subsidiaries.manager.css'
 })
 
 export class SubsidiariesManagerComponent implements OnInit {
@@ -80,6 +80,12 @@ export class SubsidiariesManagerComponent implements OnInit {
     } else {
       this.subsidiariesService.postData(this.subsidiaryForm.value);
     }
+    
     this.router.navigate(['/subsidiaries']);
+    Swal.fire({
+      title: "Drag me!",
+      icon: "success",
+      draggable: true
+    });
   }
 }

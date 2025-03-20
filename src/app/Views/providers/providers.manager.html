@@ -1,0 +1,112 @@
+<div class="w-full h-screen m-10 flex justify-center items-center">
+    <div
+        class="m-auto block w-2/6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <a href="/providers"
+            class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-500 rounded-lg">
+            <i class="fa-solid fa-arrow-left mr-3"></i>
+            Regresar
+        </a>
+        <div class="flex items-center justify-start mt-4">
+            <i class="fa-solid fa-shop fa-2xl mr-3"></i>
+            <div>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Proveedores</h5>
+                <p class="font-normal text-gray-700 dark:text-gray-400">{{id ? 'Edita' : 'Agrega'}} un proveedor</p>
+            </div>
+        </div>
+        <form [formGroup]="providerForm" (ngSubmit)="onSubmit()" class="mt-4">
+            <div class="grid gap-4 md:grid-cols-2 mb-8">
+                <app-g-text 
+                    formControlName="key" 
+                    name="key" 
+                    label="Clave" 
+                    placeholder="Clave" 
+                    [disabled]="true" 
+                    [readOnly]="true"
+                    [validation]="providerForm.get('key')!.invalid && providerForm.get('key')!.touched"
+                    [errorMessage]="getErrorMessage('key')">
+                </app-g-text>
+                <app-g-text 
+                    formControlName="rfc" 
+                    name="rfc" 
+                    label="RFC" 
+                    placeholder="RFC" 
+                    [validation]="providerForm.get('rfc')!.invalid && providerForm.get('rfc')!.touched"
+                    [errorMessage]="getErrorMessage('rfc')">
+                </app-g-text>
+                <app-g-text 
+                    class="col-span-2"
+                    formControlName="razon_social" 
+                    name="razon_social" 
+                    label="Razón Social"
+                    placeholder="Razón Social" 
+                    [validation]="providerForm.get('razon_social')!.invalid && providerForm.get('razon_social')!.touched"
+                    [errorMessage]="getErrorMessage('razon_social')">
+                </app-g-text>
+                <app-g-text 
+                    class="col-span-2"
+                    formControlName="address" 
+                    name="address" 
+                    label="Dirección" 
+                    placeholder="Dirección"
+                    [validation]="providerForm.get('address')!.invalid && providerForm.get('address')!.touched"
+                    [errorMessage]="getErrorMessage('address')">
+                </app-g-text>
+                <app-g-text 
+                    formControlName="phone" 
+                    name="phone" 
+                    label="Teléfono" 
+                    placeholder="Teléfono" 
+                    [validation]="providerForm.get('phone')!.invalid && providerForm.get('phone')!.touched"
+                    [errorMessage]="getErrorMessage('phone')">
+                </app-g-text>
+                <app-g-text 
+                    formControlName="email" 
+                    name="email" 
+                    label="Correo Electrónico" 
+                    placeholder="Correo"
+                    [validation]="providerForm.get('email')!.invalid && providerForm.get('email')!.touched"
+                    [errorMessage]="getErrorMessage('email')">
+                </app-g-text>
+                <div class="col-span-2 grid gap-3 grid-cols-3 grid-rows-1">
+                    <app-g-select 
+                        formControlName="status" 
+                        name="status" 
+                        label="Estatus" 
+                        [options]="statuses"
+                        [validation]="providerForm.get('status')!.invalid && providerForm.get('status')!.touched"
+                        [errorMessage]="getErrorMessage('status')">
+                    </app-g-select>
+                    <app-g-select 
+                        formControlName="type" 
+                        name="type" 
+                        label="Tipo" 
+                        [options]="types"
+                        [validation]="providerForm.get('type')!.invalid && providerForm.get('type')!.touched"
+                        [errorMessage]="getErrorMessage('type')">
+                    </app-g-select>
+                    <app-g-text 
+                        formControlName="max_capacity" 
+                        name="max_capacity" 
+                        label="Capacidad Máxima"
+                        placeholder="Capacidad Máxima"
+                        [validation]="providerForm.get('max_capacity')!.invalid && providerForm.get('max_capacity')!.touched"
+                        [errorMessage]="getErrorMessage('max_capacity')">
+                    </app-g-text>
+                </div>
+                <app-g-text-area 
+                    class="col-span-2"
+                    formControlName="conditions" 
+                    name="conditions" 
+                    label="condiciones"
+                    placeholder="condiciones del servicio"
+                    [validation]="providerForm.get('conditions')!.invalid && providerForm.get('conditions')!.touched"
+                    [errorMessage]="getErrorMessage('conditions')">
+                </app-g-text-area>
+            </div>
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Guardar
+            </button>
+        </form>
+    </div>
+</div>

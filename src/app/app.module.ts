@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -9,7 +9,7 @@ import { LoginViewComponent } from './Views/Login/login.view';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './Views/Generic/navbar/navbar.component';
 import { SidebarComponent } from './Views/Generic/sidebar/sidebar.component';
-import { MenuItemItem } from './Views/Generic/sidebar/menu-item/menu-item.item';
+import { MenuItemItemComponent } from './Views/Generic/sidebar/menu-item/menu-item.item';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GTextInput } from './Views/Generic/inputs/g-text/g-text.input';
 import { SubsidiariesViewComponent } from './Views/subsidiaries/subsidiaries.view';
@@ -20,6 +20,12 @@ import { GEditButtonComponent } from './Views/Generic/buttons/g-edit/g-edit.butt
 import { GSelectInputComponent } from './Views/Generic/inputs/g-select/g-select.input';
 import { SanitizeHtmlDirective } from './sanitize-html.directive';
 import { GDeleteButtonComponent } from './Views/Generic/buttons/g-delete/g-delete.button';
+import { SafePipe } from './safe.pipe';
+import { AuthInterceptor } from './auth.interceptor';
+import { CookieService } from 'ngx-cookie-service';
+import { ProvidersViewComponent } from './Views/providers/providers.view';
+import { ProvidersManagerComponent } from './Views/providers/providers.manager';
+import { GTextAreaInput } from './Views/Generic/inputs/g-text-area/g-text-area.input';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,7 @@ import { GDeleteButtonComponent } from './Views/Generic/buttons/g-delete/g-delet
     LoginViewComponent,
     NavbarComponent,
     SidebarComponent,
-    MenuItemItem,
+    MenuItemItemComponent,
     GTextInput,
     SubsidiariesViewComponent,
     GAddButtonComponent,
@@ -37,7 +43,11 @@ import { GDeleteButtonComponent } from './Views/Generic/buttons/g-delete/g-delet
     GEditButtonComponent,
     GSelectInputComponent,
     SanitizeHtmlDirective,
-    GDeleteButtonComponent
+    GDeleteButtonComponent,
+    SafePipe,
+    ProvidersViewComponent,
+    ProvidersManagerComponent,
+    GTextAreaInput
   ],
   imports: [
     BrowserModule,
@@ -48,7 +58,9 @@ import { GDeleteButtonComponent } from './Views/Generic/buttons/g-delete/g-delet
     RouterModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
