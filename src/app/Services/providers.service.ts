@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Provider } from '../Models/provider.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProvidersService {
 
-  constructor() { }
+  private API_URL = 'api-gateway-production-9080.up.railway.app/api/generar_token';
+  constructor(private httpClient: HttpClient) { }
 
   providers: Provider[] = [
     {
@@ -71,5 +73,9 @@ export class ProvidersService {
     if (index!== -1) {
       this.providers.splice(index, 1);
     }
+  }
+
+  generateApiSecret(providerId: number): Observable<any> {
+    return this.httpClient.post(this.API_URL, {});
   }
 }
