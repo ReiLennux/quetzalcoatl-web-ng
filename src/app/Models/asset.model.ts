@@ -1,4 +1,4 @@
-export class Assets {
+export class Asset {
     Id!: number;
     Name!: string;
     Description!: string;

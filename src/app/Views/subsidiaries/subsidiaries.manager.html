@@ -2,17 +2,16 @@
 
     <div
         class="m-auto block w-2/6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-        <button type="button" 
-                [routerLink]="['/subsidiaries']"
-                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-500 rounded-lg">
+        <a  href="/subsidiaries"
+            class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-500 rounded-lg">
             <i class="fa-solid fa-arrow-left mr-3"></i>
             Regresar
-            </button>
+        </a>
         <div class="flex items-center justify-start">
             <div>
-                    <i class="fa-solid fa-shop fa-2xl mr-3"></i>
+                <i class="fa-solid fa-shop fa-2xl mr-3"></i>
             </div>
-            
+
             <div>
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Sucursales</h5>
                 <p class="font-normal text-gray-700 dark:text-gray-400">{{id ? 'Edita' : 'Agrega'}} una sucursal</p>
@@ -55,7 +54,7 @@
                         [errorMessage]="getErrorMessage('email')">
                     </app-g-text>
                 </div>
-                <div class="self-center" >
+                <div class="self-center">
                     <app-g-select formControlName="status" name="status" label="Estatus" [options]="statuses"
                         [validation]="subsidiaryForm.get('status')!.invalid && subsidiaryForm.get('status')!.touched"
                         [errorMessage]="getErrorMessage('status')">

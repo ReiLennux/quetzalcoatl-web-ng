@@ -85,7 +85,7 @@ export class ProvidersManagerComponent implements OnInit {
       
       this.router.navigate(['/providers']);
       Swal.fire({
-        title: "Se agrego con exito!",
+        title: "Guardado correctamente!",
         icon: "success",
         draggable: true,
       });

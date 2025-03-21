@@ -16,6 +16,11 @@ export class SidebarComponent {
       name: 'Proveedores',
       url: '/providers',
       icon: 'fa-solid fa-truck',
+    },
+    {
+      name: 'Activos',
+      url: '/assets',
+      icon: 'fa-solid fa-database',
     }
   ];
 }

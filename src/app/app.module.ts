@@ -26,6 +26,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { ProvidersViewComponent } from './Views/providers/providers.view';
 import { ProvidersManagerComponent } from './Views/providers/providers.manager';
 import { GTextAreaInput } from './Views/Generic/inputs/g-text-area/g-text-area.input';
+import { AssetsViewComponent } from './Views/assets/assets.view';
+import { AssetsManagerComponent } from './Views/assets/assets.manager';
+import { GDateInput } from './Views/Generic/inputs/g-date/g-date.input';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { GTextAreaInput } from './Views/Generic/inputs/g-text-area/g-text-area.i
     SafePipe,
     ProvidersViewComponent,
     ProvidersManagerComponent,
-    GTextAreaInput
+    GTextAreaInput,
+    AssetsViewComponent,
+    AssetsManagerComponent,
+    GDateInput
   ],
   imports: [
     BrowserModule,

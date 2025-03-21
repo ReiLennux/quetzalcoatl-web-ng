@@ -7,6 +7,8 @@ import { SubsidiariesViewComponent } from './Views/subsidiaries/subsidiaries.vie
 import { SubsidiariesManagerComponent } from './Views/subsidiaries/subsidiaries.manager';
 import { ProvidersViewComponent } from './Views/providers/providers.view';
 import { ProvidersManagerComponent } from './Views/providers/providers.manager';
+import { AssetsViewComponent } from './Views/assets/assets.view';
+import { AssetsManagerComponent } from './Views/assets/assets.manager';
 
 const routes: Routes = [
   {
@@ -47,6 +49,21 @@ const routes: Routes = [
   {
     path:'providers/manager/:id',
     component: ProvidersManagerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'assets',
+    component: AssetsViewComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'assets/manager',
+    component: AssetsManagerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'assets/manager/:id',
+    component: AssetsManagerComponent,
     canActivate: [AuthGuard]
   },
   {
