@@ -39,21 +39,23 @@ export class AuthService {
     );
   }
 
-  createCookie(name: string, value: string, days = 1): void {
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + days); 
-
-    this.cookieService.set(name, value, expirationDate, '/', '', true, 'Strict');
-
-  }
 
   getToken(): boolean {
     if (this.cookieService.get('authToken')) return true ; else return false;
   }
 
-  logout(): void {
-    this.cookieService.delete('authToken');
+  createCookie(name: string, value: string, days = 1): void {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + days);
+  
+    this.cookieService.set(name, value, expirationDate, '/', '', false, 'Lax');  // Cambia Secure y SameSite
   }
+  
+  logout(): void {
+    this.cookieService.delete('authToken', '/');
+    window.location.reload();
+  }
+  
 
   isAuthenticated(): boolean {
     return this.cookieService.check('authToken');
