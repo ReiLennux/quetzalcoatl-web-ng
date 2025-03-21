@@ -30,6 +30,12 @@ export class AuthService {
       tap(response => {
         if (response?.token) {
           this.createCookie('authToken', response.token);
+          console.log(response);
+          this.saveUserData(
+            response.rol,
+            response.nombre,
+            userData.correo
+          );
         }
       }),
       catchError(error => {
@@ -40,29 +46,28 @@ export class AuthService {
   }
 
 
-  getToken(): boolean {
-    if (this.cookieService.get('authToken')) return true ; else return false;
+  getToken(): string {
+    return this.cookieService.get('authToken');
   }
 
   createCookie(name: string, value: string, days = 1): void {
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + days);
-  
     this.cookieService.set(name, value, expirationDate, '/', '', false, 'Lax');  // Cambia Secure y SameSite
   }
   
   logout(): void {
     this.cookieService.delete('authToken', '/');
     window.location.reload();
+    localStorage.clear();
   }
   
 
   isAuthenticated(): boolean {
-    console.log(this.cookieService.check('authToken'))
     return this.cookieService.check('authToken');
   }
 
-  private saveUserData({ token, rol, nombre, email }: { token: string; rol: string; nombre: string, email: string }): void {
+  private saveUserData(rol: string, nombre: string, email: string ): void {
     localStorage.setItem(this.storageKeys.role, rol);
     localStorage.setItem(this.storageKeys.name, nombre);
     localStorage.setItem(this.storageKeys.email, email);

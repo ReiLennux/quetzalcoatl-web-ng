@@ -16,12 +16,11 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     if (isPlatformBrowser(this.platformId)) {
-      const isLoggedIn = this.authService.getToken()
+      const isLoggedIn = this.authService.isAuthenticated()
       if (isLoggedIn ) {
         return true;
       }
     }
-
     this.router.navigate(['/login']); 
     return false;
   }
