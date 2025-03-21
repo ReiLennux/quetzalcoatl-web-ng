@@ -47,8 +47,8 @@ export class AuthService {
 
   }
 
-  getToken(): string {
-    return this.cookieService.get('authToken');
+  getToken(): boolean {
+    if (this.cookieService.get('authToken')) return true ; else return false;
   }
 
   logout(): void {
@@ -60,7 +60,6 @@ export class AuthService {
   }
 
   private saveUserData({ token, rol, nombre, email }: { token: string; rol: string; nombre: string, email: string }): void {
-    localStorage.setItem(this.storageKeys.token, token);
     localStorage.setItem(this.storageKeys.role, rol);
     localStorage.setItem(this.storageKeys.name, nombre);
     localStorage.setItem(this.storageKeys.email, email);
