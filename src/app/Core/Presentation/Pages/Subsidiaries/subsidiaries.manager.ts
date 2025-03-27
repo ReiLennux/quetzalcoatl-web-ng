@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubsidiariesService } from '../../../Data/Services/subsidiaries.service';
 import { Subsidiary } from '../../../Domain/Models/subsidiary.model';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { GetByIdUseCase } from '../../../Domain/UseCases/Subsidiaries/get-by-id.use.case';
+import { PutUseCase } from '../../../Domain/UseCases/Subsidiaries/put.use-case';
+import { PostUseCase } from '../../../Domain/UseCases/Subsidiaries/post.use-case';
 
 @Component({
   selector: 'app-subsidiaries',
@@ -25,7 +27,9 @@ export class SubsidiariesManagerComponent implements OnInit {
   
   constructor(
     private fb: FormBuilder, 
-    private subsidiariesService: SubsidiariesService, 
+    private GetUseCase: GetByIdUseCase,
+    private putUseCase: PutUseCase,
+    private postUseCase: PostUseCase,
     private router: Router, 
     private route: ActivatedRoute
   ) {
@@ -45,7 +49,9 @@ export class SubsidiariesManagerComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.id = +id;
-        this.subsidiariesService.getById(this.id).subscribe((data: Subsidiary) => {
+        this.GetUseCase.execute(this.id).subscribe((data: any) => {
+          const subsidiaryData = data as Subsidiary;
+          this.subsidiaryForm.patchValue(subsidiaryData);
           this.subsidiaryForm.patchValue(data);
         });
       }
@@ -76,9 +82,9 @@ export class SubsidiariesManagerComponent implements OnInit {
     }
     console.log(this.subsidiaryForm.value);
     if (this.id > 0) {
-      this.subsidiariesService.putData(this.subsidiaryForm.value);
+      this.putUseCase.execute(this.subsidiaryForm.value);
     } else {
-      this.subsidiariesService.postData(this.subsidiaryForm.value);
+      this.postUseCase.execute(this.subsidiaryForm.value);
     }
     
     this.router.navigate(['/subsidiaries']);

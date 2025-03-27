@@ -1,0 +1,32 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { environment } from "../../../../environments/environments";
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SubsidiariesRepository {
+    private apiUrl = environment.API_URL;
+
+    constructor(private http: HttpClient) {}
+
+    getSubsidiaries() {
+        return this.http.get(`${this.apiUrl}/gateway/sucursales`);
+    }
+
+    getbyId(id: number) {
+        return this.http.get(`${this.apiUrl}/gateway/sucursales/${id}`);
+    }
+
+    createSubsidiary(subsidiary: any) {
+        return this.http.post(`${this.apiUrl}/gateway/sucursales`, subsidiary);
+    }
+
+    updateSubsidiary(subsidiary: any) {
+        return this.http.put(`${this.apiUrl}/gateway/sucursales/${subsidiary.SucursalID}`, subsidiary);
+    }
+
+    deleteSubsidiary(id: number) {
+        return this.http.delete(`${this.apiUrl}/gateway/sucursales/${id}`);
+    }
+}

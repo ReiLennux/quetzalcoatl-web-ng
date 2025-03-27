@@ -6,12 +6,12 @@ import { Injectable } from "@angular/core";
 @Injectable({
     providedIn: 'root'
 })
-export class GetUseCase {
+export class GetByIdUseCase {
     constructor(
         private providersRepository: ProvidersRepository
     ) { }
 
-    execute() {
-        return this.providersRepository.getProviders();
+    execute(id: number) {
+        return this.providersRepository.getbyId(id);
     }
 }

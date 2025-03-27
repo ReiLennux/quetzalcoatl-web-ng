@@ -1,10 +1,11 @@
+import { Subsidiary } from './../../../Domain/Models/subsidiary.model';
+import { GetUseCase as GetSubsidiariesUseCase } from './../../../Domain/UseCases/Subsidiaries/get.use-case';
 import { Provider } from './../../../Domain/Models/provider.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../../Data/Services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { SubsidiariesService } from '../../../Data/Services/subsidiaries.service';
 import { GetUseCase } from '../../../Domain/UseCases/Providers/get.use-case';
 
 @Component({
@@ -23,7 +24,7 @@ export class AssetsManagerComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private providerGetUseCase: GetUseCase,
-      private subsidiaryService: SubsidiariesService
+      private subsidiaryGetUseCase: GetSubsidiariesUseCase
       
     ){
       this.assetForm = this.fb.group({
@@ -57,8 +58,9 @@ export class AssetsManagerComponent implements OnInit {
       this.providerGetUseCase.execute().subscribe((data: Provider[]) => {
         this.providers = data.map((provider: Provider) => ({ value: provider.ProveedorID, label: provider.Nombre }));
       });
-      this.subsidiaryService.getData().subscribe((data: any) => {
-        this.subsidiaries = data.map((subsidiary: any) => ({ value: subsidiary.id, label: subsidiary.key }));
+      this.subsidiaryGetUseCase.execute().subscribe((data: any) => {
+        const subsidiaries = data as Subsidiary[];
+        this.subsidiaries = subsidiaries.map((subsidiary: Subsidiary) => ({ value: subsidiary.SucursalId, label: subsidiary.Nombre }));
       });
     }
 

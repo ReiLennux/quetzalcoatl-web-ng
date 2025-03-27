@@ -31,4 +31,8 @@ export class ProvidersRepository {
     updateProvider(provider: Provider): Observable<Provider> {
         return this.http.put<Provider>(`${this.apiUrl}/gateway/proveedores/${provider.ProveedorID}`, provider);
     }
+
+    deleteProvider(id: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/gateway/proveedores/${id}`);
+    }
 }
