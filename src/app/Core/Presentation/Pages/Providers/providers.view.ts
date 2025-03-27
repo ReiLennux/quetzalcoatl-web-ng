@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProvidersColumn } from '../../../Data/dto/providers.dto';
 import Swal from 'sweetalert2';
 import { GetUseCase } from '../../../Domain/UseCases/Providers/get.use-case';
-import { getbyId } from '../../../Domain/UseCases/Providers/get-by-id.use-case';
+import { GetById } from '../../../Domain/UseCases/Providers/get-by-id.use-case';
 import { GenerateApiSecretUseCase } from '../../../Domain/UseCases/Providers/generate-api-secret.use-case';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -18,7 +18,7 @@ export class ProvidersViewComponent implements OnInit {
 
   constructor(
     private getUseCase: GetUseCase,
-    private getbyIdUseCase: getbyId,
+    private getbyIdUseCase: GetById,
     private generateApiSecretUseCase: GenerateApiSecretUseCase
   ) {}
 

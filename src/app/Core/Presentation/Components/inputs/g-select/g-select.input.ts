@@ -4,7 +4,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'app-g-select',
   templateUrl: './g-select.input.html',
-  styleUrls: ['./g-select.input.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

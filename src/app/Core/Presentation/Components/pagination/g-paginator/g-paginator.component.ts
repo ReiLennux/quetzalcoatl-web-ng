@@ -2,8 +2,7 @@ import { Component, Output } from '@angular/core';
 
 @Component({
   selector: 'app-g-paginator',
-  templateUrl: './g-paginator.component.html',
-  styleUrl: './g-paginator.component.css'
+  templateUrl: './g-paginator.component.html'
 })
 export class GPaginatorComponent {
   @Output() page = 1;

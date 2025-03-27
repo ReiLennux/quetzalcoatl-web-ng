@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { MenuItemItemComponent } from './menu-item/menu-item.item';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
   modules: { name: string; url: string; icon: string; }[] = [

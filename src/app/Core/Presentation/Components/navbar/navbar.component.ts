@@ -4,7 +4,6 @@ import { LogoutUseCase } from '../../../Domain/UseCases/Auth/logout.use-case';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
 

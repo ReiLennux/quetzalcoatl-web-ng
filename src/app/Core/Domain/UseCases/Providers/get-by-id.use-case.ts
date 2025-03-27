@@ -5,7 +5,7 @@ import { ProvidersRepository } from "../../../Data/Repositories/providers.reposi
 @Injectable({
     providedIn: 'root'
 })
-export class getbyId {
+export class GetById {
     constructor(private providersRepository: ProvidersRepository) { }
 
 

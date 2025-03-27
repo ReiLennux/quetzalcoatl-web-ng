@@ -1,14 +1,16 @@
+import { GetByIdUseCase } from './../../../Domain/UseCases/Assets/get-by-id.use-case';
 import { Subsidiary } from './../../../Domain/Models/subsidiary.model';
 import { GetUseCase as GetSubsidiariesUseCase } from './../../../Domain/UseCases/Subsidiaries/get.use-case';
 import { Provider } from './../../../Domain/Models/provider.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { AssetsService } from '../../../Data/Services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { GetUseCase } from '../../../Domain/UseCases/Providers/get.use-case';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { PostUseCase } from '../../../Domain/UseCases/Assets/post.use-case';
+import { PutUseCase } from '../../../Domain/UseCases/Assets/put.use-case';
 
 @Component({
   selector: 'app-assets',
@@ -27,11 +29,13 @@ export class AssetsManagerComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private assetService: AssetsService,
     private router: Router,
     private route: ActivatedRoute,
     private providerGetUseCase: GetUseCase,
-    private subsidiaryGetUseCase: GetSubsidiariesUseCase
+    private subsidiaryGetUseCase: GetSubsidiariesUseCase,
+    private getByIdUseCase: GetByIdUseCase,
+    private postUseCase: PostUseCase,
+    private putUseCase: PutUseCase
   ) {
     this.assetForm = this.fb.group({
       ActivoFijoID: [], // Asumí que el ID puede no ser requerido en la creación
@@ -52,7 +56,7 @@ export class AssetsManagerComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.id = +id;
-        this.assetService.getById(this.id).subscribe((data: any) => {
+        this.getByIdUseCase.execute(this.id).subscribe((data: any) => {
           // Patch the form values based on the response data
           this.assetForm.patchValue({
             ActivoFijoID: data.ActivoFijoID,
@@ -132,7 +136,7 @@ export class AssetsManagerComponent implements OnInit {
 
     if (this.id > 0) {
       // Actualizar el activo existente
-      this.assetService.putData(formValue).subscribe(() => {
+      this.putUseCase.execute(formValue).subscribe(() => {
         Swal.fire({
           title: 'Actualizado correctamente!',
           icon: 'success',
@@ -142,7 +146,7 @@ export class AssetsManagerComponent implements OnInit {
       });
     } else {
       // Crear un nuevo activo
-      this.assetService.postData(formValue).subscribe(() => {
+      this.postUseCase.execute(formValue).subscribe(() => {
         Swal.fire({
           title: 'Guardado correctamente!',
           icon: 'success',

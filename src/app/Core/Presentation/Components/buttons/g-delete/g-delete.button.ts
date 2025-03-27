@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-g-delete',
   templateUrl: './g-delete.button.html',
-  styleUrl: './g-delete.button.css'
 })
 export class GDeleteButtonComponent {
   @Input() id = -1; 

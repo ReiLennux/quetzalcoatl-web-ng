@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
 import { PostUseCase } from './../../../Domain/UseCases/Providers/post.use-case';
 import { PutUseCase } from './../../../Domain/UseCases/Providers/put.use-case';
-import { getbyId } from './../../../Domain/UseCases/Providers/get-by-id.use-case';
+import { GetById } from './../../../Domain/UseCases/Providers/get-by-id.use-case';
 
 @Component({
   selector: 'app-providers',
@@ -27,7 +26,7 @@ export class ProvidersManagerComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private postUseCase: PostUseCase,
-    private getbyIdUseCase: getbyId,
+    private getbyIdUseCase: GetById,
     private putUseCase: PutUseCase,
     private router: Router,
     private route: ActivatedRoute
