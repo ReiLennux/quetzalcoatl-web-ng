@@ -1,10 +1,11 @@
+import { Provider } from './../../../Domain/Models/provider.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AssetsService } from '../../../Data/Services/assets.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { ProvidersService } from '../../../Data/Services/providers.service';
 import { SubsidiariesService } from '../../../Data/Services/subsidiaries.service';
+import { GetUseCase } from '../../../Domain/UseCases/Providers/get.use-case';
 
 @Component({
   selector: 'app-assets',
@@ -21,7 +22,7 @@ export class AssetsManagerComponent implements OnInit {
       private assetService: AssetsService,
       private router: Router,
       private route: ActivatedRoute,
-      private providerService: ProvidersService,
+      private providerGetUseCase: GetUseCase,
       private subsidiaryService: SubsidiariesService
       
     ){
@@ -53,10 +54,10 @@ export class AssetsManagerComponent implements OnInit {
     }
 
     private  async getCatalogs(){
-      await this.providerService.getData().subscribe((data: any) => {
-        this.providers = data.map((provider: any) => ({ value: provider.id, label: provider.razon_social }));
+      this.providerGetUseCase.execute().subscribe((data: Provider[]) => {
+        this.providers = data.map((provider: Provider) => ({ value: provider.ProveedorID, label: provider.Nombre }));
       });
-      await this.subsidiaryService.getData().subscribe((data: any) => {
+      this.subsidiaryService.getData().subscribe((data: any) => {
         this.subsidiaries = data.map((subsidiary: any) => ({ value: subsidiary.id, label: subsidiary.key }));
       });
     }
