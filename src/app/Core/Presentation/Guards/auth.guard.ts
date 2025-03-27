@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { StorageService } from './../../../Infrastructure/Storage/storage.service';
 import { Observable, of } from 'rxjs';
@@ -8,13 +8,16 @@ import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard {
-  private router = inject(Router);
-  private storageService = inject(StorageService);
+export class AuthGuard implements CanActivate {
+
+  constructor(
+    private router: Router,
+    private storageService: StorageService,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {}
 
   canActivate(): Observable<boolean> {
-    // Verificamos si estamos en el navegador (sólo hacer la validación en el navegador)
-    if (!isPlatformBrowser) {
+    if (!isPlatformBrowser(this.platformId)) {
       return of(false);
     }
 

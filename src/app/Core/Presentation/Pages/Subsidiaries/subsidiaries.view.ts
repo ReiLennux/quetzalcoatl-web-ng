@@ -23,7 +23,11 @@ export class SubsidiariesViewComponent implements OnInit {
   ngOnInit() {
     this.getUseCase.execute().pipe(
       catchError(error => {
-        this.showAlert('Error', 'No se pudieron obtener las sucursales.', 'error');
+                Swal.fire({
+                  title: 'Error',
+                  text: 'No se pudieron cargar las sucursales.',
+                  icon: 'error',
+                });
         console.error('Error al obtener las sucursales:', error);
         return of([] as Subsidiary[]);
       })
@@ -50,16 +54,8 @@ export class SubsidiariesViewComponent implements OnInit {
       title,
       text,
       icon,
-      // Aquí usamos las clases dark de Flowbite
-      customClass: {
-        popup: 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white', // Fondo claro o oscuro según el tema
-        title: 'text-xl font-semibold',
-        htmlContainer: 'text-base',
-        icon: icon === 'error' ? 'text-red-500' : 'text-green-500',
-      },
-      // Mantén el fondo del pop-up según el tema oscuro
-      background: 'transparent',
-      showConfirmButton: true,
+      background: window.matchMedia('(prefers-color-scheme: dark)').matches ? '#2b2b2b' : '#ffffff',
+      color: window.matchMedia('(prefers-color-scheme: dark)').matches ? '#ffffff' : '#000000'
     });
   }
 }

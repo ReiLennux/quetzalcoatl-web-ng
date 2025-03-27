@@ -2,5 +2,5 @@ projectKey=MiAngularApp
 serverUrl=http://localhost:9000
 serverVersion=9.9.7.96285
 dashboardUrl=http://localhost:9000/dashboard?id=MiAngularApp
-ceTaskId=AZXYxRAqABtqt3UnrK2S
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AZXYxRAqABtqt3UnrK2S
+ceTaskId=AZXYzME-ABtqt3UnrK2j
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AZXYzME-ABtqt3UnrK2j

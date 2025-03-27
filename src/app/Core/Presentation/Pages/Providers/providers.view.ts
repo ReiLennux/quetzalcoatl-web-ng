@@ -4,8 +4,9 @@ import Swal from 'sweetalert2';
 import { GetUseCase } from '../../../Domain/UseCases/Providers/get.use-case';
 import { GetById } from '../../../Domain/UseCases/Providers/get-by-id.use-case';
 import { GenerateApiSecretUseCase } from '../../../Domain/UseCases/Providers/generate-api-secret.use-case';
-import { switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Provider } from '../../../Domain/Models/provider.model';
 
 @Component({
   selector: 'app-providers',
@@ -23,8 +24,22 @@ export class ProvidersViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getUseCase.execute().subscribe(providers => {
-      this.providers = providers || [];
+    this.getProviders();
+  }
+
+  getProviders() {
+    this.getUseCase.execute().pipe(
+      catchError(error => {
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudieron cargar los proveedores.',
+          icon: 'error',
+        });
+        console.error('Error al obtener los proveedores:', error);
+        return of([] as Provider[]);
+      })
+    ).subscribe((data: Provider[]) => {
+      this.providers = data || [];
     });
   }
 
