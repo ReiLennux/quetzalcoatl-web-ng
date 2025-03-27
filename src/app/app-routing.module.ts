@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginViewComponent } from './Views/Login/login.view';
-import { DashboardViewComponent } from './Views/dashboard/dashboard.view';
-import { AuthGuard } from './auth.guard';
-import { SubsidiariesViewComponent } from './Views/subsidiaries/subsidiaries.view';
-import { SubsidiariesManagerComponent } from './Views/subsidiaries/subsidiaries.manager';
-import { ProvidersViewComponent } from './Views/providers/providers.view';
-import { ProvidersManagerComponent } from './Views/providers/providers.manager';
-import { AssetsViewComponent } from './Views/assets/assets.view';
-import { AssetsManagerComponent } from './Views/assets/assets.manager';
+import { LoginViewComponent } from './Core/Presentation/Pages/Login/login.view';
+import { DashboardViewComponent } from './Core/Presentation/Components/dashboard/dashboard.view';
+import { AuthGuard } from './Core/Presentation/Guards/auth.guard';
+import { SubsidiariesViewComponent } from './Core/Presentation/Pages/Subsidiaries/subsidiaries.view';
+import { SubsidiariesManagerComponent } from './Core/Presentation/Pages/Subsidiaries/subsidiaries.manager';
+import { ProvidersViewComponent } from './Core/Presentation/Pages/Providers/providers.view';
+import { ProvidersManagerComponent } from './Core/Presentation/Pages/Providers/providers.manager';
+import { AssetsViewComponent } from './Core/Presentation/Pages/Assets/assets.view';
+import { AssetsManagerComponent } from './Core/Presentation/Pages/Assets/assets.manager';
 
 const routes: Routes = [
   {
