@@ -15,19 +15,19 @@ export class AssetsRepository  {
     constructor(private http: HttpClient) { }
 
     getAssets() : Observable<Asset[]> {
-        return this.http.get<Asset[]>(`${this.apiUrl}/activofijo`);
+        return this.http.get<Asset[]>(`${this.apiUrl}/gateway/activofijo`);
     }
     getById(id: number) : Observable<Asset> {
-        return this.http.get<Asset>(`${this.apiUrl}/activofijo/${id}`);
+        return this.http.get<Asset>(`${this.apiUrl}/gateway/activofijo/${id}`);
     }
     postData(asset: Asset)  : Observable<Asset> {
-        return this.http.post<Asset>(`${this.apiUrl}/activofijo`, asset);
+        return this.http.post<Asset>(`${this.apiUrl}/gateway/activofijo`, asset);
     }
     putData(asset: Asset)  : Observable<Asset> {
-        return this.http.put<Asset>(`${this.apiUrl}/activofijo/${asset.ActivoFijoID}`, asset);
+        return this.http.put<Asset>(`${this.apiUrl}/gateway/activofijo/${asset.ActivoFijoID}`, asset);
     }
     deleteData(id: number): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/activofijo/${id}`);
+        return this.http.delete(`${this.apiUrl}/gateway/activofijo/${id}`);
     }
 
 }
