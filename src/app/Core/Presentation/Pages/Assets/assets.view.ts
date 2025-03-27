@@ -1,6 +1,7 @@
+import { DeleteUseCase } from './../../../Domain/UseCases/Assets/delete.use-case';
+import { GetUseCase } from './../../../Domain/UseCases/Assets/get.use-case';
 import { Component, OnInit } from '@angular/core';
 import { Asset } from '../../../Domain/Models/asset.model';
-import { AssetsService } from '../../../Data/Services/assets.service';
 import { AssetsColumns } from '../../../Data/dto/assets.dto';
 
 
@@ -13,17 +14,19 @@ export class AssetsViewComponent implements OnInit {
     columnsName = AssetsColumns;
     assets: Asset[] = [];
 
-    constructor( private assetService: AssetsService){}
+    constructor( 
+        private getUseCase: GetUseCase,
+        private deleteUseCase: DeleteUseCase
+    ){}
 
   ngOnInit() {
-        this.assetService.getData().subscribe((data: Asset[]) => {
-            this.assets = data;
-
-        });
+    this.getUseCase.execute().subscribe((assets: Asset[]) => {
+        this.assets = assets;
+    });
   }
 
   deleteAsset(id: number) {
-        this.assetService.deleteData(id).subscribe(() => {
+        this.deleteUseCase.execute(id).subscribe(() => {
             this.assets = this.assets.filter(asset => asset.ActivoFijoID !== id);
         });
     }
