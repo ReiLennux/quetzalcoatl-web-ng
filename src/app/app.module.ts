@@ -62,7 +62,12 @@ import { GDateInput } from './Core/Presentation/Components/inputs/g-date/g-date.
   providers: [
     provideClientHydration(),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    CookieService
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true // Permite que puedas agregar múltiples interceptores si es necesario
+    }
   ],
   bootstrap: [AppComponent]
 })

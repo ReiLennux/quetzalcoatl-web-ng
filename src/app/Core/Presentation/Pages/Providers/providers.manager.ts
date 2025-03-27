@@ -1,5 +1,7 @@
+import { PutUseCase } from './../../../Domain/UseCases/Providers/put.use-case';
+import { getbyId } from './../../../Domain/UseCases/Providers/get-by-id.use-case';
+import { PostUseCase } from './../../../Domain/UseCases/Providers/post.use-case';
 import { Component, OnInit } from '@angular/core';
-import { ProvidersService } from '../../../Data/Services/providers.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -24,7 +26,9 @@ export class ProvidersManagerComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, 
-    private providersService: ProvidersService, 
+    private postUseCase: PostUseCase,
+    private getbyIdUseCase: getbyId,
+    private putUseCase: PutUseCase,
     private router: Router, 
     private route: ActivatedRoute
   ) {
@@ -47,7 +51,7 @@ export class ProvidersManagerComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.id = +id;
-        this.providersService.getProvider(this.id).subscribe((data: any) => {
+        this.getbyIdUseCase.execute(this.id).subscribe((data: any) => {
           this.providerForm.patchValue(data);
         });
       }
@@ -78,9 +82,9 @@ export class ProvidersManagerComponent implements OnInit {
       }
       console.log(this.providerForm.value);
       if (this.id > 0) {
-        this.providersService.putData(this.providerForm.value);
+        this.putUseCase.execute(this.providerForm.value);
       } else {
-        this.providersService.postData(this.providerForm.value);
+        this.postUseCase.execute(this.providerForm.value);
       }
       
       this.router.navigate(['/providers']);

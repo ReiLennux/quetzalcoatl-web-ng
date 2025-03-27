@@ -1,7 +1,9 @@
+import { GenerateApiSecretUseCase } from './../../../Domain/UseCases/Providers/generate-api-secret.use-case';
+import { getbyId } from './../../../Domain/UseCases/Providers/get-by-id.use-case';
 import { Component, OnInit } from '@angular/core';
 import { ProvidersColumn } from '../../../Data/dto/providers.dto';
-import { ProvidersService } from '../../../Data/Services/providers.service';
 import Swal from 'sweetalert2';
+import { GetUseCase } from '../../../Domain/UseCases/Providers/get.use-case';
 
 @Component({
   selector: 'app-providers',
@@ -10,13 +12,17 @@ import Swal from 'sweetalert2';
 export class ProvidersViewComponent implements OnInit {
   columnsName = ProvidersColumn;
   providers: any[] | undefined;
-  confirmationStatus: { [key: number]: boolean } = {}; // Estado de confirmación por proveedor
+  confirmationStatus: { [key: number]: boolean } = {};
 
-  constructor(private providerServices: ProvidersService) {}
+  constructor(
+    private getUseCase: GetUseCase,
+    private getbyIdUseCase: getbyId,
+    private generateApiSecretUseCase: GenerateApiSecretUseCase
+  ) {}
 
   ngOnInit() {
-    this.providerServices.getData().subscribe((data: any[]) => {
-      this.providers = data;
+    this.getUseCase.execute().subscribe((providers: any) => {
+      this.providers = providers;
     });
   }
 
@@ -35,12 +41,12 @@ export class ProvidersViewComponent implements OnInit {
   }
 
   generateApiSecrets(providerId: number) {
-    this.providerServices.getProvider(providerId).subscribe(provider => {
+    this.getbyIdUseCase.execute(providerId).subscribe(provider => {
       if (!provider) {
         return;
       }
   
-      this.providerServices.generateApiSecret(providerId).subscribe(response => {
+      this.generateApiSecretUseCase.execute().subscribe(response => {
         if (!response || !response.token) {
           Swal.fire({
             title: "Error",
@@ -54,7 +60,7 @@ export class ProvidersViewComponent implements OnInit {
         const apiSecrets = {
           providerId: provider.ProveedorID,
           name: provider.Nombre,
-          Token: response.token,  // Aquí ya está asignado el token correctamente
+          Token: response.token,
           base_url: "https://quetzalcoatl.com/api/v1/prov",
           createdAt: new Date().toISOString()
         };

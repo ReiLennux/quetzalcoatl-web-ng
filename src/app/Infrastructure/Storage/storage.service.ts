@@ -32,4 +32,8 @@ export class StorageService {
     localStorage.setItem(this.storageKeys.name, nombre);
     localStorage.setItem(this.storageKeys.email, email);
   }
+
+  isAuthenticated(): boolean {
+    return this.cookieService.check('authToken');
+  }
 }

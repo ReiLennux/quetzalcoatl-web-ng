@@ -15,4 +15,6 @@ export class AuthRepository {
   login(userData: Auth): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, userData);
   }
+
+
 }
