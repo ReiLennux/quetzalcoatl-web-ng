@@ -1,7 +1,9 @@
-import { StorageService } from './../../../Infrastructure/Storage/storage.service';
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { StorageService } from './../../../Infrastructure/Storage/storage.service';
+import { Observable, of } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +16,17 @@ export class AuthGuard implements CanActivate {
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
-  canActivate(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      const isLoggedIn = this.storageService.isAuthenticated()
-      if (isLoggedIn ) {
-        return true;
-      }
+  canActivate(): Observable<boolean> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return of(false);
     }
-    this.router.navigate(['/login']); 
-    return false;
+
+    return of(this.storageService.isAuthenticated()).pipe(
+      tap((isLoggedIn) => {
+        if (!isLoggedIn) {
+          this.router.navigate(['/login']);
+        }
+      })
+    );
   }
 }
-

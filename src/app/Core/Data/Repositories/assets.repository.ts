@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
-export class AssetsRepository {
+export class AssetsRepository  {
     private apiUrl = environment.API_URL;
 
     constructor(private http: HttpClient) { }
