@@ -16,12 +16,12 @@
         <form [formGroup]="assetForm" (ngSubmit)="onSubmit()" class="mt-4">
             <div class="grid gap-4 md:grid-cols-2 mb-8">
                 <app-g-text 
-                    formControlName="Name" 
-                    name="Name" 
+                    formControlName="Nombre" 
+                    name="Nombre" 
                     label="Activo fijo" 
                     placeholder="Activo Fijo" 
-                    [validation]="assetForm.get('Name')!.invalid && assetForm.get('Name')!.touched"
-                    [errorMessage]="getErrorMessage('Name')">
+                    [validation]="assetForm.get('Nombre')!.invalid && assetForm.get('Nombre')!.touched"
+                    [errorMessage]="getErrorMessage('Nombre')">
                 </app-g-text>
                 <app-g-text 
                 formControlName="Serial" 
@@ -33,61 +33,74 @@
             </app-g-text>
                 <app-g-text-area 
                     class="col-span-2"
-                    formControlName="Description" 
-                    name="Description" 
+                    formControlName="Descripcion" 
+                    name="Descripcion" 
                     label="Descripcion"
                     placeholder="Descripcion general del activo"
-                    [validation]="assetForm.get('Description')!.invalid && assetForm.get('Description')!.touched"
-                    [errorMessage]="getErrorMessage('Description')">
+                    [validation]="assetForm.get('Descripcion')!.invalid && assetForm.get('Descripcion')!.touched"
+                    [errorMessage]="getErrorMessage('Descripcion')">
                 </app-g-text-area>
                 <app-g-text 
                 class="col-span-2"
-                formControlName="purchaseDate" 
-                name="purchaseDate" 
+                formControlName="FechaCompra" 
+                name="FechaCompra" 
                 label="Fecha de Compra" 
                 type="date"
                 placeholder="SB-1234532EE"
-                [validation]="assetForm.get('purchaseDate')!.invalid && assetForm.get('purchaseDate')!.touched"
-                [errorMessage]="getErrorMessage('purchaseDate')">
+                [validation]="assetForm.get('FechaCompra')!.invalid && assetForm.get('FechaCompra')!.touched"
+                [errorMessage]="getErrorMessage('FechaCompra')">
             </app-g-text>
                 <div class="col-span-2 grid grid-cols-2 grid-rows-1">
                     <app-g-text 
-                        formControlName="start_date" 
-                        name="start_date" 
+                        formControlName="FechaAlta" 
+                        name="FechaAlta" 
                         label="Fecha de inicio" 
                         type="date"
-                        [validation]="assetForm.get('start_date')!.invalid && assetForm.get('start_date')!.touched"
-                        [errorMessage]="getErrorMessage('start_date')">
+                        [validation]="assetForm.get('FechaAlta')!.invalid && assetForm.get('FechaAlta')!.touched"
+                        [errorMessage]="getErrorMessage('FechaAlta')">
                     </app-g-text>
                     <app-g-text 
-                        formControlName="end_date" 
-                        name="end_date" 
+                        formControlName="FechaBaja" 
+                        name="FechaBaja" 
                         label="Fecha de termino" 
                         type="date"
-                        [validation]="assetForm.get('end_date')!.invalid && assetForm.get('end_date')!.touched"
-                        [errorMessage]="getErrorMessage('end_date')">
+                        [validation]="assetForm.get('FechaBaja')!.invalid && assetForm.get('FechaBaja')!.touched"
+                        [errorMessage]="getErrorMessage('FechaBaja')"
+                        [readOnly]="id<=0 ? true : false"
+                        [disabled]="id<=0 ? true : false"
+                        >
                     </app-g-text>
                 </div>
                 <div class="col-span-2 grid gap-3 grid-cols-2 grid-rows-1">
                     <app-g-select 
-                        formControlName="providerId" 
-                        name="providerId" 
+                        formControlName="ProveedorID" 
+                        name="ProveedorID" 
                         label="Proveedor" 
                         [options]="providers"
                         placeholder="Proveedor"
-                        [validation]="assetForm.get('providerId')!.invalid && assetForm.get('providerId')!.touched"
-                        [errorMessage]="getErrorMessage('providerId')">
+                        [validation]="assetForm.get('ProveedorID')!.invalid && assetForm.get('ProveedorID')!.touched"
+                        [errorMessage]="getErrorMessage('ProveedorID')">
                     </app-g-select>
                     <app-g-select 
-                        formControlName="subsidiaryId" 
-                        name="subsidiaryId" 
+                        formControlName="SucursalID" 
+                        name="SucursalID" 
                         label="Sucursal" 
                         [options]="subsidiaries"
                         placeholder="Sucursal"
-                        [validation]="assetForm.get('subsidiaryId')!.invalid && assetForm.get('subsidiaryId')!.touched"
-                        [errorMessage]="getErrorMessage('subsidiaryId')">
+                        [validation]="assetForm.get('SucursalID')!.invalid && assetForm.get('SucursalID')!.touched"
+                        [errorMessage]="getErrorMessage('SucursalID')">
                     </app-g-select>
                 </div>
+                <app-g-select 
+                    class="col-span-2"
+                    formControlName="Estatus" 
+                    name="Estatus" 
+                    label="Estatus" 
+                    [options]="statuses"
+                    placeholder="Estado"
+                    [validation]="assetForm.get('Estatus')!.invalid && assetForm.get('Estatus')!.touched"
+                    [errorMessage]="getErrorMessage('Estatus')">
+                </app-g-select>
 
             </div>
             <button type="submit"

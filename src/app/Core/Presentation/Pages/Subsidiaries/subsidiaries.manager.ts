@@ -16,13 +16,13 @@ export class SubsidiariesManagerComponent implements OnInit {
   subsidiaryForm: FormGroup;
   id = 0;
   statuses = [
-    { value: 'active', label: 'Activo' },
-    { value: 'inactive', label: 'Inactivo' },
-    { value: 'suspended', label: 'Suspendido' }
+    { value: 1, label: 'Activo' },
+    { value: 2, label: 'Inactivo' },
+    { value: 3, label: 'Suspendido' }
   ]
   types = [
-    { value: 'main', label: 'Principal' },
-    { value: 'branch', label: 'Sucursal' }
+    { value: 1, label: 'Principal' },
+    { value: 2, label: 'Sucursal' }
   ]
   
   constructor(
@@ -33,14 +33,23 @@ export class SubsidiariesManagerComponent implements OnInit {
     private router: Router, 
     private route: ActivatedRoute
   ) {
+    
+    // Aquí creamos el formulario con las validaciones correctas
     this.subsidiaryForm = this.fb.group({
-      key: ['', []],
-      address: ['', [Validators.required, Validators.minLength(6)]],
-      manager: ['', [Validators.required, Validators.minLength(10)]],
-      phone: ['', [Validators.required, Validators.minLength(10)]],
-      status: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      type: ['', [Validators.required]]
+      SucursalId: [0],
+      Nombre: ['', [Validators.required, Validators.minLength(3)]],
+
+      Direccion: ['', [Validators.required, Validators.minLength(6)]],
+      Ciudad: ['', [Validators.required, Validators.minLength(3)]],
+      Estado: ['', [Validators.required]],
+      Pais: ['', [Validators.required]],
+      CodigoPostal: ['', [Validators.required, Validators.minLength(5)]],
+      Latitud: [null, [Validators.required]],
+      Longitud: [null, [Validators.required]],
+      
+      FechaAlta: [new Date(), [Validators.required]], 
+      FechaBaja: [null],
+      Estatus: ['', [Validators.required]]
     });
   }
 
@@ -51,8 +60,22 @@ export class SubsidiariesManagerComponent implements OnInit {
         this.id = +id;
         this.GetUseCase.execute(this.id).subscribe((data: any) => {
           const subsidiaryData = data as Subsidiary;
-          this.subsidiaryForm.patchValue(subsidiaryData);
-          this.subsidiaryForm.patchValue(data);
+
+          // Asignamos los valores del SubsidiaryData al formulario
+          this.subsidiaryForm.patchValue({
+            SucursalId: subsidiaryData.SucursalId,
+            Nombre: subsidiaryData.Nombre,
+            Direccion: subsidiaryData.Direccion,
+            Ciudad: subsidiaryData.Ciudad,
+            Estado: subsidiaryData.Estado,
+            Pais: subsidiaryData.Pais,
+            CodigoPostal: subsidiaryData.CodigoPostal,
+            Latitud: subsidiaryData.Latitud,
+            Longitud: subsidiaryData.Longitud,
+            FechaAlta: subsidiaryData.FechaAlta,
+            FechaBaja: subsidiaryData.FechaBaja,
+            Estatus: subsidiaryData.Estatus
+          });
         });
       }
     });
@@ -61,16 +84,12 @@ export class SubsidiariesManagerComponent implements OnInit {
   getErrorMessage(controlName: string): string {
     const control = this.subsidiaryForm.get(controlName);
 
-    // Verificar si el control es inválido y tocado
     if (control?.invalid && control?.touched) {
       if (control.hasError('required')) {
         return 'Este campo es obligatorio';
       }
       if (control.hasError('minlength')) {
         return `Debe tener al menos ${control.errors?.['minlength'].requiredLength} caracteres`;
-      }
-      if (control.hasError('email')) {
-        return 'El correo no es válido';
       }
     }
     return '';  // Si no hay error
@@ -80,18 +99,29 @@ export class SubsidiariesManagerComponent implements OnInit {
     if (this.subsidiaryForm.invalid) {
       return;
     }
-    console.log(this.subsidiaryForm.value);
+
+    // Preparamos los datos para ser enviados
+    const formValue = this.subsidiaryForm.value;
+
+    // Enviar la información
     if (this.id > 0) {
-      this.putUseCase.execute(this.subsidiaryForm.value);
+      this.putUseCase.execute(formValue).subscribe(() => {
+        Swal.fire({
+          title: 'Sucursal actualizada!',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+        this.router.navigate(['/subsidiaries']);
+      });
     } else {
-      this.postUseCase.execute(this.subsidiaryForm.value);
+      this.postUseCase.execute(formValue).subscribe(() => {
+        Swal.fire({
+          title: 'Sucursal guardada!',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+        this.router.navigate(['/subsidiaries']);
+      });
     }
-    
-    this.router.navigate(['/subsidiaries']);
-    Swal.fire({
-      title: "Drag me!",
-      icon: "success",
-      draggable: true
-    });
   }
 }

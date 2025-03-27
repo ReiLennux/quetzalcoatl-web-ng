@@ -20,50 +20,31 @@
         <form [formGroup]="subsidiaryForm" (ngSubmit)="onSubmit()">
             <div class="grid gap-4 md:grid-cols-2 mb-8">
                 <div>
-                    <app-g-text formControlName="key" name="key" label="Clave" placeholder="Clave" type="text"
-                        [disabled]="true" [readOnly]="true"
-                        [validation]="subsidiaryForm.get('key')!.invalid && subsidiaryForm.get('key')!.touched"
-                        [errorMessage]="getErrorMessage('key')">
+                    <app-g-text 
+                        formControlName="Nombre" 
+                        name="Nombre" 
+                        label="Nombre" 
+                        placeholder="Nombre" 
+                        type="text"
+                        [validation]="subsidiaryForm.get('Nombre')!.invalid && subsidiaryForm.get('Nombre')!.touched"
+                        [errorMessage]="getErrorMessage('Nombre')">
                     </app-g-text>
                 </div>
                 <div>
-                    <app-g-text formControlName="address" name="address" label="Direccion"
+                    <app-g-text formControlName="Direccion" name="Direccion" label="Direccion"
                         placeholder="Direccion de la sucursal" type="text"
-                        [validation]="subsidiaryForm.get('address')!.invalid && subsidiaryForm.get('address')!.touched"
-                        [errorMessage]="getErrorMessage('address')">
-                    </app-g-text>
-                </div>
-                <div>
-                    <app-g-text formControlName="manager" name="manager" label="Encargado"
-                        placeholder="Nombre Completo de Encargado" type="text"
-                        [validation]="subsidiaryForm.get('manager')!.invalid && subsidiaryForm.get('manager')!.touched"
-                        [errorMessage]="getErrorMessage('manager')">
-                    </app-g-text>
-                </div>
-                <div>
-                    <app-g-text formControlName="phone" name="phone" label="Telefono"
-                        placeholder="Telefono de la sucursal" type="text"
-                        [validation]="subsidiaryForm.get('phone')!.invalid && subsidiaryForm.get('phone')!.touched"
-                        [errorMessage]="getErrorMessage('phone')">
-                    </app-g-text>
-                </div>
-                <div>
-                    <app-g-text formControlName="email" name="email" label="Correo electronico"
-                        placeholder="Correo electronico de la sucursal" type="text"
-                        [validation]="subsidiaryForm.get('email')!.invalid && subsidiaryForm.get('email')!.touched"
-                        [errorMessage]="getErrorMessage('email')">
+                        [validation]="subsidiaryForm.get('Direccion')!.invalid && subsidiaryForm.get('Direccion')!.touched"
+                        [errorMessage]="getErrorMessage('Direccion')">
                     </app-g-text>
                 </div>
                 <div class="self-center">
-                    <app-g-select formControlName="status" name="status" label="Estatus" [options]="statuses"
-                        [validation]="subsidiaryForm.get('status')!.invalid && subsidiaryForm.get('status')!.touched"
-                        [errorMessage]="getErrorMessage('status')">
-                    </app-g-select>
-                </div>
-                <div class="self-center">
-                    <app-g-select formControlName="type" name="type" label="Tipo" [options]="types"
-                        [validation]="subsidiaryForm.get('type')!.invalid && subsidiaryForm.get('type')!.touched"
-                        [errorMessage]="getErrorMessage('type')">
+                    <app-g-select 
+                        formControlName="Estatus" 
+                        name="Estatus" 
+                        label="Estatus" 
+                        [options]="statuses"
+                        [validation]="subsidiaryForm.get('Estatus')!.invalid && subsidiaryForm.get('Estatus')!.touched"
+                        [errorMessage]="getErrorMessage('Estatus')">
                     </app-g-select>
                 </div>
             </div>
@@ -74,3 +55,6 @@
         </form>
     </div>
 </div>
+
+
+<app-map></app-map>

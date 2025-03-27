@@ -16,92 +16,70 @@
         <form [formGroup]="providerForm" (ngSubmit)="onSubmit()" class="mt-4">
             <div class="grid gap-4 md:grid-cols-2 mb-8">
                 <app-g-text 
-                    formControlName="key" 
-                    name="key" 
-                    label="Clave" 
-                    placeholder="Clave" 
-                    [disabled]="true" 
-                    [readOnly]="true"
-                    [validation]="providerForm.get('key')!.invalid && providerForm.get('key')!.touched"
-                    [errorMessage]="getErrorMessage('key')">
+                    formControlName="Nombre" 
+                    name="Nombre" 
+                    label="Nombre" 
+                    placeholder="Nombre" 
+                    [validation]="providerForm.get('Nombre')!.invalid && providerForm.get('Nombre')!.touched"
+                    [errorMessage]="getErrorMessage('Nombre')">
                 </app-g-text>
                 <app-g-text 
-                    formControlName="rfc" 
-                    name="rfc" 
-                    label="RFC" 
-                    placeholder="RFC" 
-                    [validation]="providerForm.get('rfc')!.invalid && providerForm.get('rfc')!.touched"
-                    [errorMessage]="getErrorMessage('rfc')">
+                    formControlName="Direccion" 
+                    name="Direccion" 
+                    label="Direccion" 
+                    placeholder="Direccion" 
+                    [validation]="providerForm.get('Direccion')!.invalid && providerForm.get('Direccion')!.touched"
+                    [errorMessage]="getErrorMessage('Direccion')">
                 </app-g-text>
                 <app-g-text 
                     class="col-span-2"
-                    formControlName="razon_social" 
-                    name="razon_social" 
-                    label="Razón Social"
-                    placeholder="Razón Social" 
-                    [validation]="providerForm.get('razon_social')!.invalid && providerForm.get('razon_social')!.touched"
-                    [errorMessage]="getErrorMessage('razon_social')">
+                    formControlName="Telefono" 
+                    name="Telefono" 
+                    label="Telefono"
+                    placeholder="Telefono" 
+                    [validation]="providerForm.get('Telefono')!.invalid && providerForm.get('Telefono')!.touched"
+                    [errorMessage]="getErrorMessage('Telefono')">
                 </app-g-text>
-                <app-g-text 
-                    class="col-span-2"
-                    formControlName="address" 
-                    name="address" 
-                    label="Dirección" 
-                    placeholder="Dirección"
-                    [validation]="providerForm.get('address')!.invalid && providerForm.get('address')!.touched"
-                    [errorMessage]="getErrorMessage('address')">
-                </app-g-text>
-                <app-g-text 
-                    formControlName="phone" 
-                    name="phone" 
-                    label="Teléfono" 
-                    placeholder="Teléfono" 
-                    [validation]="providerForm.get('phone')!.invalid && providerForm.get('phone')!.touched"
-                    [errorMessage]="getErrorMessage('phone')">
-                </app-g-text>
-                <app-g-text 
-                    formControlName="email" 
-                    name="email" 
-                    label="Correo Electrónico" 
-                    placeholder="Correo"
-                    [validation]="providerForm.get('email')!.invalid && providerForm.get('email')!.touched"
-                    [errorMessage]="getErrorMessage('email')">
-                </app-g-text>
-                <div class="col-span-2 grid gap-3 grid-cols-3 grid-rows-1">
+                <div class="col-span-2 grid gap-3 grid-cols-2 grid-rows-1">
                     <app-g-select 
-                        formControlName="status" 
-                        name="status" 
+                        formControlName="Estatus" 
+                        name="Estatus" 
                         label="Estatus" 
                         [options]="statuses"
-                        [validation]="providerForm.get('status')!.invalid && providerForm.get('status')!.touched"
-                        [errorMessage]="getErrorMessage('status')">
+                        [validation]="providerForm.get('Estatus')!.invalid && providerForm.get('Estatus')!.touched"
+                        [errorMessage]="getErrorMessage('Estatus')">
                     </app-g-select>
                     <app-g-select 
-                        formControlName="type" 
-                        name="type" 
+                        formControlName="Tipo" 
+                        name="Tipo" 
                         label="Tipo" 
                         [options]="types"
-                        [validation]="providerForm.get('type')!.invalid && providerForm.get('type')!.touched"
-                        [errorMessage]="getErrorMessage('type')">
+                        [validation]="providerForm.get('Tipo')!.invalid && providerForm.get('Tipo')!.touched"
+                        [errorMessage]="getErrorMessage('Tipo')">
                     </app-g-select>
+                </div>
+                <div class="col-span-2 grid grid-cols-2 grid-rows-1">
                     <app-g-text 
-                        formControlName="max_capacity" 
-                        name="max_capacity" 
-                        label="Capacidad Máxima"
-                        placeholder="Capacidad Máxima"
-                        [validation]="providerForm.get('max_capacity')!.invalid && providerForm.get('max_capacity')!.touched"
-                        [errorMessage]="getErrorMessage('max_capacity')">
+                        formControlName="FechaAlta" 
+                        name="FechaAlta" 
+                        label="Fecha de inicio" 
+                        type="date"
+                        [validation]="providerForm.get('FechaAlta')!.invalid && providerForm.get('FechaAlta')!.touched"
+                        [errorMessage]="getErrorMessage('FechaAlta')">
+                    </app-g-text>
+                    <app-g-text 
+                        formControlName="FechaBaja" 
+                        name="FechaBaja" 
+                        label="Fecha de termino" 
+                        type="date"
+                        [validation]="providerForm.get('FechaBaja')!.invalid && providerForm.get('FechaBaja')!.touched"
+                        [errorMessage]="getErrorMessage('FechaBaja')"
+                        [readOnly]="id<=0 ? true : false"
+                        [disabled]="id<=0 ? true : false"
+                        >
                     </app-g-text>
                 </div>
-                <app-g-text-area 
-                    class="col-span-2"
-                    formControlName="conditions" 
-                    name="conditions" 
-                    label="condiciones"
-                    placeholder="condiciones del servicio"
-                    [validation]="providerForm.get('conditions')!.invalid && providerForm.get('conditions')!.touched"
-                    [errorMessage]="getErrorMessage('conditions')">
-                </app-g-text-area>
+                
             </div>
             <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

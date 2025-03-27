@@ -27,7 +27,6 @@ import { GTextAreaInput } from './Core/Presentation/Components/inputs/g-text-are
 import { AssetsViewComponent } from './Core/Presentation/Pages/Assets/assets.view';
 import { AssetsManagerComponent } from './Core/Presentation/Pages/Assets/assets.manager';
 import { GDateInput } from './Core/Presentation/Components/inputs/g-date/g-date.input';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +48,7 @@ import { GDateInput } from './Core/Presentation/Components/inputs/g-date/g-date.
     GTextAreaInput,
     AssetsViewComponent,
     AssetsManagerComponent,
-    GDateInput
+    GDateInput,
   ],
   imports: [
     BrowserModule,
