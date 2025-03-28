@@ -92,7 +92,6 @@ export class ProvidersManagerComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.providerForm.value);
     if (this.providerForm.invalid) {
       Swal.fire({
         title: 'Por favor, corrige los errores del formulario.',

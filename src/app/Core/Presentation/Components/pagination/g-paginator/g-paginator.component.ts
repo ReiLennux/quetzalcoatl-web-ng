@@ -14,7 +14,6 @@ export class GPaginatorComponent {
   nextpage() {
     if (this.page < this.totalPage) this.page ++;
 
-    console.log(this.page);
   }
 
   navto(page: number){
@@ -31,7 +30,6 @@ export class GPaginatorComponent {
 
   prevpage() {
     if (this.page > 1) this.page --;
-    console.log(this.page);
   }
 
   getPages(totalPage: number): number[] {

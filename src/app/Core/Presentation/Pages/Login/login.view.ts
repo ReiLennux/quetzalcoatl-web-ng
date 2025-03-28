@@ -43,7 +43,6 @@ export class LoginViewComponent {
 
     this.loginUseCase.execute(userData).subscribe(
       (response) => {
-        console.log('Respuesta del servidor:', response);
         this.isSubmitting = false;
         this.router.navigate(['/r']); // Redirigir al home o a la ruta deseada
       },
