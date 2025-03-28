@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { PostUseCase } from './../../../Domain/UseCases/Providers/post.use-case';
 import { PutUseCase } from './../../../Domain/UseCases/Providers/put.use-case';
 import { GetById } from './../../../Domain/UseCases/Providers/get-by-id.use-case';
-
+import { Provider } from '../../../Domain/Models/provider.model';
 @Component({
   selector: 'app-providers',
   templateUrl: './providers.manager.html',
@@ -33,17 +33,17 @@ export class ProvidersManagerComponent implements OnInit {
   ) {
     // Actualización del FormGroup según el modelo Provider
     this.providerForm = this.fb.group({
-      ProveedorID: [0],  // No se requiere validación si es solo para editar
-      Nombre: ['', [Validators.required, Validators.maxLength(200)]],
+      proveedorID: [0],  // No se requiere validación si es solo para editar
+      nombre: ['', [Validators.required, Validators.maxLength(200)]],
 
-      Tipo: ['', Validators.required],
+      tipo: ['', Validators.required],
 
-      Direccion: ['', Validators.required],
-      Telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],  // Solo números
-      Email: ['', [Validators.required, Validators.email]],
-      FechaAlta: ['', Validators.required],  // Necesitaría un formateo específico para fechas
-      FechaBaja: [''],  // Opcional
-      Estatus: ['', Validators.required]
+      direccion: ['', Validators.required],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],  // Solo números
+      email: ['', [Validators.required, Validators.email]],
+      fechaAlta: ['', Validators.required],  // Necesitaría un formateo específico para fechas
+      fechaBaja: [''],  // Opcional
+      estatus: ['', Validators.required]
     });
   }
 
@@ -53,18 +53,17 @@ export class ProvidersManagerComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.id = +id;
-        this.getbyIdUseCase.execute(this.id).subscribe((data: any) => {
-          // Aquí se espera que los datos tengan el formato adecuado para el formulario
+        this.getbyIdUseCase.execute(this.id).subscribe((data: Provider) => {
           this.providerForm.patchValue({
-            ProveedorID: data.ProveedorID,
-            Nombre: data.Nombre,
-            Tipo: data.Tipo,
-            Direccion: data.Direccion,
-            Telefono: data.Telefono,
-            Email: data.Email,
-            FechaAlta: data.Fechalta, // Este es un campo de tipo Date, puede necesitar formateo
-            FechaBaja: data.FechaBaja, 
-            Estatus: data.Estatus
+            proveedorID: data.proveedorId,
+            nombre: data.nombre,
+            tipo: data.tipo,
+            direccion: data.direccion,
+            telefono: data.telefono,
+            email: data.email,
+            fechaAlta: data.fechaAlta,
+            fechaBaja: data.fechaBaja,
+            estatus: data.estatus
           });
         });
       }
@@ -93,6 +92,7 @@ export class ProvidersManagerComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.providerForm.value);
     if (this.providerForm.invalid) {
       Swal.fire({
         title: 'Por favor, corrige los errores del formulario.',
@@ -102,6 +102,7 @@ export class ProvidersManagerComponent implements OnInit {
     }
 
     const formData = this.providerForm.value;
+
     if (this.id > 0) {
       this.putUseCase.execute(formData).subscribe(
         () => this.handleSuccess('Actualización exitosa'),
@@ -132,14 +133,3 @@ export class ProvidersManagerComponent implements OnInit {
   }
 }
 
-export interface Provider {
-  ProveedorID: number;
-  Nombre: string;
-  Tipo: string;
-  Direccion: string;
-  Telefono: string;
-  Email: string;
-  Fechalta: Date;
-  FechaBaja?: Date;
-  Estatus: string;
-}

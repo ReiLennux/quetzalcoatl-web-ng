@@ -51,7 +51,7 @@ export class AssetsViewComponent implements OnInit {
       })
     ).subscribe(() => {
       // Actualizar la lista de activos eliminando el activo
-      this.assets = this.assets.filter((asset) => asset.ActivoFijoID !== id);
+      this.assets = this.assets.filter((asset) => asset.activoFijoID !== id);
       Swal.fire({
         title: 'Eliminado',
         text: 'El activo ha sido eliminado con éxito.',

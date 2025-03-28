@@ -24,7 +24,7 @@ export class AssetsRepository  {
         return this.http.post<Asset>(`${this.apiUrl}/gateway/activofijo`, asset);
     }
     putData(asset: Asset)  : Observable<Asset> {
-        return this.http.put<Asset>(`${this.apiUrl}/gateway/activofijo/${asset.ActivoFijoID}`, asset);
+        return this.http.put<Asset>(`${this.apiUrl}/gateway/activofijo/${asset.activoFijoID}`, asset);
     }
     deleteData(id: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/gateway/activofijo/${id}`);

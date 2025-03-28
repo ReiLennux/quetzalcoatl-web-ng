@@ -22,24 +22,24 @@
                 <tbody>
                     <tr *ngFor="let asset of assets" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{asset.Nombre}}
+                            {{asset.nombre}}
                         </th>
                         <td class="px-6 py-4">
-                            {{asset.Serial}}
+                            {{asset.serial}}
                         </td>
                         <td class="px-6 py-4">
                             xd
                         </td>
                         <td class="px-6 py-4">
-                            {{asset.FechaAlta}}
+                            {{asset.fechaAlta}}
                         </td>
                         <td class="px-6 py-4">
-                            {{asset.FechaBaja?.toDateString()}}
+                            {{asset.fechaBaja?.toDateString()}}
                         </td>
                         <td class="px-6 py-4">
                             <!-- Botón para abrir el modal -->
-                            <button [attr.data-modal-target]="'static-modal-' + asset.ActivoFijoID"
-                                [attr.data-modal-toggle]="'static-modal-' + asset.ActivoFijoID"
+                            <button [attr.data-modal-target]="'static-modal-' + asset.activoFijoID"
+                                [attr.data-modal-toggle]="'static-modal-' + asset.activoFijoID"
                                 class="px-3 py-2 text-xs font-medium text-center focus:outline-none text-white bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 rounded dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 type="button">
                                 <i class="fa-solid fa-info fa-sm"></i>
@@ -47,7 +47,7 @@
                             </button>
 
                             <!-- Modal -->
-                            <div [attr.ActivoFijoID]="'static-modal-' + asset.ActivoFijoID" data-modal-backdrop="static"
+                            <div [attr.ActivoFijoID]="'static-modal-' + asset.activoFijoID" data-modal-backdrop="static"
                                 tabindex="-1" aria-hidden="true"
                                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                 <div class="relative p-4 w-full max-w-2xl max-h-full">
@@ -56,29 +56,29 @@
                                         <div
                                             class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
                                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                                Acerca de {{asset.Nombre}}
+                                                Acerca de {{asset.nombre}}
                                             </h3>
                                             <button type="button"
                                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                [attr.data-modal-hide]="'static-modal-' + asset.ActivoFijoID">
+                                                [attr.data-modal-hide]="'static-modal-' + asset.activoFijoID">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </button>
                                         </div>
                                         <!-- Cuerpo -->
                                         <div class="p-4 space-y-4">
-                                            <p class="text-gray-900 dark:text-white">Descripcion: {{asset.Descripcion}}
+                                            <p class="text-gray-900 dark:text-white">Descripcion: {{asset.descripcion}}
                                             </p>
-                                            <p class="text-gray-900 dark:text-white">Fecha de compra: {{asset.FechaCompra}}
+                                            <p class="text-gray-900 dark:text-white">Fecha de compra: {{asset.fechaCompra}}
                                             </p>
                                             <p class="text-gray-900 dark:text-white">Proveedor:
-                                                {{asset.ProveedorID}}</p>
+                                                {{asset.proveedor}}</p>
                                             <p class="text-gray-900 dark:text-white">sucursal:
-                                                {{asset.SucursalID}}</p>
+                                                {{asset.sucursal}}</p>
                                         </div>
                                         <!-- Footer -->
                                         <div
                                             class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                            <button [attr.data-modal-hide]="'static-modal-' + asset.ActivoFijoID"
+                                            <button [attr.data-modal-hide]="'static-modal-' + asset.activoFijoID"
                                                 type="button"
                                                 class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                                 Aceptar
@@ -90,15 +90,18 @@
 
                         </td>
                         <td class="px-6 py-4">
-                        <app-g-edit url="manager" [id]="asset.ActivoFijoID"></app-g-edit>
+                        <app-g-edit url="manager" [id]="asset.activoFijoID"></app-g-edit>
                         </td>
                         <td class="px-6 py-4">
-                            <app-g-delete [id]="asset.ActivoFijoID" (confirmDeletion)="deleteAsset(asset.ActivoFijoID)"></app-g-delete>
+                            <app-g-delete [id]="asset.activoFijoID" (confirmDeletion)="deleteAsset(asset.activoFijoID)"></app-g-delete>
                         </td>
                     </tr>
 
                 </tbody>
             </table>
+        </div>
+        <div *ngIf="assets.length === 0" class="w-full flex justify-center items-center">
+            <div class="px-3 py-1 text-md font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">cargando...</div>
         </div>
         <app-g-paginator></app-g-paginator>
     </div>

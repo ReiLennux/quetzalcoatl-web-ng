@@ -14,7 +14,7 @@ import { Provider } from '../../../Domain/Models/provider.model';
 })
 export class ProvidersViewComponent implements OnInit {
   columnsName = ProvidersColumn;
-  providers: any[] = [];
+  providers: Provider[] = [];
   confirmationStatus: { [key: number]: boolean } = {};
 
   constructor(
@@ -44,7 +44,7 @@ export class ProvidersViewComponent implements OnInit {
   }
 
   deleteProvider(provider: any) {
-    this.providers = this.providers?.filter(p => p.id !== provider.id);
+    this.providers = this.providers?.filter(p => p.proveedorId !== provider.id);
     this.showAlert('Eliminado', 'Proveedor eliminado correctamente.', 'success');
   }
 

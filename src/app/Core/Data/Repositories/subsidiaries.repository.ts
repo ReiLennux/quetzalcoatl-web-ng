@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../environments/environments";
+import { Subsidiary } from "../../Domain/Models/subsidiary.model";
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +19,12 @@ export class SubsidiariesRepository {
         return this.http.get(`${this.apiUrl}/gateway/sucursales/${id}`);
     }
 
-    createSubsidiary(subsidiary: any) {
+    createSubsidiary(subsidiary: Subsidiary) {
         return this.http.post(`${this.apiUrl}/gateway/sucursales`, subsidiary);
     }
 
-    updateSubsidiary(subsidiary: any) {
-        return this.http.put(`${this.apiUrl}/gateway/sucursales/${subsidiary.SucursalID}`, subsidiary);
+    updateSubsidiary(subsidiary: Subsidiary) {
+        return this.http.put(`${this.apiUrl}/gateway/sucursales/${subsidiary.sucursalId}`, subsidiary);
     }
 
     deleteSubsidiary(id: number) {

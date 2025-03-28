@@ -63,18 +63,18 @@ export class SubsidiariesManagerComponent implements OnInit {
 
           // Asignamos los valores del SubsidiaryData al formulario
           this.subsidiaryForm.patchValue({
-            SucursalId: subsidiaryData.SucursalId,
-            Nombre: subsidiaryData.Nombre,
-            Direccion: subsidiaryData.Direccion,
-            Ciudad: subsidiaryData.Ciudad,
-            Estado: subsidiaryData.Estado,
-            Pais: subsidiaryData.Pais,
-            CodigoPostal: subsidiaryData.CodigoPostal,
-            Latitud: subsidiaryData.Latitud,
-            Longitud: subsidiaryData.Longitud,
-            FechaAlta: subsidiaryData.FechaAlta,
-            FechaBaja: subsidiaryData.FechaBaja,
-            Estatus: subsidiaryData.Estatus
+            SucursalId: subsidiaryData.sucursalId,
+            Nombre: subsidiaryData.nombre,
+            Direccion: subsidiaryData.direccion,
+            Ciudad: subsidiaryData.ciudad,
+            Estado: subsidiaryData.estado,
+            Pais: subsidiaryData.pais,
+            CodigoPostal: subsidiaryData.codigoPostal,
+            Latitud: subsidiaryData.latitud,
+            Longitud: subsidiaryData.longitud,
+            FechaAlta: subsidiaryData.fechaAlta,
+            FechaBaja: subsidiaryData.fechaBaja,
+            Estatus: subsidiaryData.estatus
           });
         });
       }

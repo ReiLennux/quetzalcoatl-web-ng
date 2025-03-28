@@ -29,7 +29,7 @@ export class ProvidersRepository {
     }
 
     updateProvider(provider: Provider): Observable<Provider> {
-        return this.http.put<Provider>(`${this.apiUrl}/gateway/proveedores/${provider.ProveedorID}`, provider);
+        return this.http.put<Provider>(`${this.apiUrl}/gateway/proveedores/${provider.proveedorId}`, provider);
     }
 
     deleteProvider(id: number): Observable<any> {

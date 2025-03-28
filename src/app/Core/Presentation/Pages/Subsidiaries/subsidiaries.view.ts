@@ -37,14 +37,14 @@ export class SubsidiariesViewComponent implements OnInit {
   }
 
   deleteSubsidiary(subsidiary: Subsidiary) {
-    this.deleteUseCase.execute(subsidiary.SucursalId).pipe(
+    this.deleteUseCase.execute(subsidiary.sucursalId).pipe(
       catchError(error => {
         this.showAlert('Error', 'No se pudo eliminar la sucursal.', 'error');
         console.error('Error al eliminar sucursal:', error);
         return of(null);
       })
     ).subscribe(() => {
-      this.subsidiaries = this.subsidiaries.filter(s => s.SucursalId !== subsidiary.SucursalId);
+      this.subsidiaries = this.subsidiaries.filter(s => s.sucursalId !== subsidiary.sucursalId);
       this.showAlert('Eliminado', 'Sucursal eliminada correctamente.', 'success');
     });
   }

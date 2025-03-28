@@ -1,12 +1,12 @@
 export interface Asset {
-    ActivoFijoID: number;
-    Nombre: string;
-    Descripcion: string;
-    Serial: string;
-    FechaCompra: Date;
-    ProveedorID: number;
-    SucursalID: number;
-    FechaAlta: Date;
-    FechaBaja?: Date;
-    Estatus: string;
+    activoFijoID: number;
+    nombre: string;
+    descripcion: string;
+    serial: string;
+    fechaCompra: Date;
+    proveedor: string;
+    sucursal: string;
+    fechaAlta: Date;
+    fechaBaja?: Date;
+    estatus: string;
 }

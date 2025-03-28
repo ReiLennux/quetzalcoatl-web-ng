@@ -1,14 +1,14 @@
 export interface Subsidiary {
-    SucursalId: number;
-    Nombre: string;
-    Direccion: string;
-    Ciudad: string;
-    Estado: string;
-    Pais: string;
-    CodigoPostal: string;
-    Latitud: number;
-    Longitud: number;
-    FechaAlta: Date;
-    FechaBaja?: Date;
-    Estatus: string;
+    sucursalId: number;
+    nombre: string;
+    direccion: string;
+    ciudad: string;
+    estado: string;
+    pais: string;
+    codigoPostal: string;
+    latitud: number;
+    longitud: number;
+    fechaAlta: Date;
+    fechaBaja?: Date;
+    estatus: string;
 }

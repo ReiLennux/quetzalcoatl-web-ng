@@ -22,33 +22,36 @@
                 <tbody>
                     <tr *ngFor="let subsidiary of subsidiaries" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{subsidiary.SucursalId}}
+                            {{subsidiary.sucursalId}}
                         </th>
                         <td class="px-6 py-4">
-                            {{subsidiary.Direccion}} {{subsidiary.Ciudad}} {{subsidiary.CodigoPostal}} {{subsidiary.Estado}} {{subsidiary.Pais}}
+                            {{subsidiary.direccion}} {{subsidiary.ciudad}} {{subsidiary.codigoPostal}} {{subsidiary.estado}} {{subsidiary.pais}}
                         </td>
                         <td class="px-6 py-4">
-                            {{subsidiary.FechaAlta}}
+                            {{subsidiary.fechaAlta}}
                         </td>
                         <td class="px-6 py-4">
-                            {{subsidiary.Nombre}}
+                            {{subsidiary.nombre}}
                         </td>
                         <td class="px-6 py-4">
-                            {{subsidiary.Latitud}} {{subsidiary.Longitud}}
+                            {{subsidiary.latitud}} {{subsidiary.longitud}}
                         </td>
                         <td class="px-6 py-4">
-                            {{subsidiary.Estatus}}
+                            {{subsidiary.estatus}}
                         </td>
                         <td class="px-6 py-4">
-                        <app-g-edit url="manager" [id]="subsidiary.SucursalId"></app-g-edit>
+                        <app-g-edit url="manager" [id]="subsidiary.sucursalId"></app-g-edit>
                         </td>
                         <td class="px-6 py-4">
-                            <app-g-delete [id]="subsidiary.SucursalId" (confirmDeletion)="deleteSubsidiary(subsidiary)"></app-g-delete>
+                            <app-g-delete [id]="subsidiary.sucursalId" (confirmDeletion)="deleteSubsidiary(subsidiary)"></app-g-delete>
                         </td>
                     </tr>
 
                 </tbody>
             </table>
+        </div>
+        <div *ngIf="subsidiaries.length === 0" class="w-full flex justify-center items-center">
+            <div class="px-3 py-1 text-md font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">cargando...</div>
         </div>
         <app-g-paginator></app-g-paginator>
     </div>

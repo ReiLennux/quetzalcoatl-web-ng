@@ -38,16 +38,16 @@ export class AssetsManagerComponent implements OnInit {
     private putUseCase: PutUseCase
   ) {
     this.assetForm = this.fb.group({
-      ActivoFijoID: [], // Asumí que el ID puede no ser requerido en la creación
-      Nombre: ['', Validators.required], // Nombre del activo
-      Descripcion: [''], // Descripción del activo (opcional)
-      Serial: ['', Validators.required], // Serial obligatorio
-      FechaCompra: ['', Validators.required], // Fecha de compra obligatoria
-      ProveedorID: ['', Validators.required], // Proveedor obligatorio
-      SucursalID: ['', Validators.required], // Sucursal obligatoria
-      FechaAlta: ['', Validators.required], // Fecha de alta obligatoria
-      FechaBaja: [''], // Fecha de baja (opcional)
-      Estatus: ['', Validators.required] // Estatus obligatorio
+      activoFijoID: [], // Asumí que el ID puede no ser requerido en la creación
+      nombre: ['', Validators.required], // Nombre del activo
+      descripcion: [''], // Descripción del activo (opcional)
+      serial: ['', Validators.required], // Serial obligatorio
+      fechaCompra: ['', Validators.required], // Fecha de compra obligatoria
+      proveedor: ['', Validators.required], // Proveedor obligatorio
+      sucursal: ['', Validators.required], // Sucursal obligatoria
+      fechaAlta: ['', Validators.required], // Fecha de alta obligatoria
+      fechaBaja: [''], // Fecha de baja (opcional)
+      estatus: ['', Validators.required] // Estatus obligatorio
     });
   }
 
@@ -90,8 +90,8 @@ export class AssetsManagerComponent implements OnInit {
       })
     ).subscribe((data: Provider[]) => {
       this.providers = data.map((provider: Provider) => ({
-        value: provider.ProveedorID,
-        label: provider.Nombre
+        value: provider.proveedorId,
+        label: provider.nombre
       }));
     });
 
@@ -109,8 +109,8 @@ export class AssetsManagerComponent implements OnInit {
     ).subscribe((data: any) => {
       const subsidiariesData = data as Subsidiary[];
       this.subsidiaries = subsidiariesData.map((subsidiary: Subsidiary) => ({
-        value: subsidiary.SucursalId,
-        label: subsidiary.Nombre
+        value: subsidiary.sucursalId,
+        label: subsidiary.nombre
       }));
     });
   }
