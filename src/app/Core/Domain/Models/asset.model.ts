@@ -1,5 +1,5 @@
 export interface Asset {
-    activoFijoID: number;
+    activoFijoId: number;
     nombre: string;
     descripcion: string;
     serial: string;

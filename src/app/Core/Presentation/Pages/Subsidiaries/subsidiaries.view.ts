@@ -21,6 +21,10 @@ export class SubsidiariesViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getSubsidiaries()
+  }
+
+  getSubsidiaries(){
     this.getUseCase.execute().pipe(
       catchError(error => {
                 Swal.fire({
@@ -45,6 +49,7 @@ export class SubsidiariesViewComponent implements OnInit {
       })
     ).subscribe(() => {
       this.subsidiaries = this.subsidiaries.filter(s => s.sucursalId !== subsidiary.sucursalId);
+      this.getSubsidiaries()
       this.showAlert('Eliminado', 'Sucursal eliminada correctamente.', 'success');
     });
   }

@@ -11,6 +11,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { PostUseCase } from '../../../Domain/UseCases/Assets/post.use-case';
 import { PutUseCase } from '../../../Domain/UseCases/Assets/put.use-case';
+import { Asset } from '../../../Domain/Models/asset.model';
 
 @Component({
   selector: 'app-assets',
@@ -38,13 +39,13 @@ export class AssetsManagerComponent implements OnInit {
     private putUseCase: PutUseCase
   ) {
     this.assetForm = this.fb.group({
-      activoFijoID: [], // Asumí que el ID puede no ser requerido en la creación
+      activoFijoId: [], // Asumí que el ID puede no ser requerido en la creación
       nombre: ['', Validators.required], // Nombre del activo
       descripcion: [], // Descripción del activo (opcional)
       serial: ['', Validators.required], // Serial obligatorio
       fechaCompra: ['', Validators.required], // Fecha de compra obligatoria
-      proveedor: ['', Validators.required], // Proveedor obligatorio
-      sucursal: ['', Validators.required], // Sucursal obligatoria
+      proveedorID: [0, Validators.required], // Proveedor obligatorio
+      sucursalID: [0, Validators.required], // Sucursal obligatoria
       fechaAlta: ['', Validators.required], // Fecha de alta obligatoria
       fechaBaja: [''], // Fecha de baja (opcional)
       estatus: ['', Validators.required] // Estatus obligatorio
@@ -56,19 +57,21 @@ export class AssetsManagerComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.id = +id;
-        this.getByIdUseCase.execute(this.id).subscribe((data: any) => {
+        console.log("obtenendo los datos de ",this.id)
+        this.getByIdUseCase.execute(this.id).subscribe((data: Asset) => {
+          console.log("aqui data: ",data)
           // Patch the form values based on the response data
           this.assetForm.patchValue({
-            ActivoFijoID: data.ActivoFijoID,
-            Nombre: data.Nombre,
-            Descripcion: data.Descripcion,
-            Serial: data.Serial,
-            FechaCompra: new Date(data.FechaCompra),
-            ProveedorID: data.ProveedorID,
-            SucursalID: data.SucursalID,
-            FechaAlta: new Date(data.FechaAlta),
-            FechaBaja: data.FechaBaja ? new Date(data.FechaBaja) : null,
-            Estatus: data.Estatus
+            activoFijoId: data.activoFijoId,
+            nombre: data.nombre,
+            descripcion: data.descripcion,
+            serial: data.serial,
+            fechaCompra: new Date(data.fechaAlta),
+            proveedorID: data.proveedor,
+            sucursalID: data.sucursal,
+            fechaAlta: new Date(data.fechaAlta),
+            fechaBaja: data.fechaBaja ? new Date(data.fechaBaja) : null,
+            estatus: data.estatus
           });
         });
       }
@@ -127,18 +130,19 @@ export class AssetsManagerComponent implements OnInit {
 
   onSubmit() {
     console.log(this.assetForm.value);
-    
-    if (this.assetForm.invalid) return;
-    
-    const formValue = { ...this.assetForm.value }; // Copia segura del formulario
   
-    // Convertir fechas a ISO solo si existen
-    formValue.FechaCompra = formValue.FechaCompra ? new Date(formValue.FechaCompra).toISOString() : null;
-    formValue.FechaAlta = formValue.FechaAlta ? new Date(formValue.FechaAlta).toISOString() : null;
+    if (this.assetForm.invalid) return;
+  
+    const formValue = { ...this.assetForm.value };
+  
+    // Convertir fechas al formato ISO 8601 con zona horaria UTC
+    formValue.fechaCompra = formValue.fechaCompra ? new Date(formValue.fechaCompra).toISOString() : null;
+    formValue.fechaAlta = formValue.fechaAlta ? new Date(formValue.fechaAlta).toISOString() : null;
   
     if (this.id > 0) {
-      // Si se edita un registro, convertir FechaBaja solo si tiene valor
-      formValue.FechaBaja = formValue.FechaBaja ? new Date(formValue.FechaBaja).toISOString() : null;
+      // Si es una edición, se incluye activoFijoID y se convierte fechaBaja si tiene valor
+      formValue.activoFijoId = this.id;
+      formValue.fechaBaja = formValue.fechaBaja ? new Date(formValue.fechaBaja).toISOString() : null;
   
       this.putUseCase.execute(formValue).subscribe(() => {
         Swal.fire({
@@ -150,9 +154,11 @@ export class AssetsManagerComponent implements OnInit {
       });
   
     } else {
-      // Si es un nuevo registro, asegurarse de que FechaBaja sea null
-      formValue.FechaBaja = null;
+      // Si es un nuevo registro, fechaBaja debe ser null y no se envía activoFijoID
+      formValue.fechaBaja = null;
+      delete formValue.activoFijoId; // Asegurar que no se envía en un nuevo registro
   
+      console.log(formValue);
       this.postUseCase.execute(formValue).subscribe(() => {
         Swal.fire({
           title: 'Guardado correctamente!',
@@ -163,5 +169,6 @@ export class AssetsManagerComponent implements OnInit {
       });
     }
   }
+  
   
 }

@@ -7,6 +7,7 @@ import { GenerateApiSecretUseCase } from '../../../Domain/UseCases/Providers/gen
 import { catchError, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Provider } from '../../../Domain/Models/provider.model';
+import { DeleteUseCase } from '../../../Domain/UseCases/Providers/delete.use-case';
 
 @Component({
   selector: 'app-providers',
@@ -20,6 +21,7 @@ export class ProvidersViewComponent implements OnInit {
   constructor(
     private getUseCase: GetUseCase,
     private getbyIdUseCase: GetById,
+    private deleteUseCase: DeleteUseCase,
     private generateApiSecretUseCase: GenerateApiSecretUseCase
   ) {}
 
@@ -43,9 +45,19 @@ export class ProvidersViewComponent implements OnInit {
     });
   }
 
-  deleteProvider(provider: any) {
-    this.providers = this.providers?.filter(p => p.proveedorId !== provider.id);
-    this.showAlert('Eliminado', 'Proveedor eliminado correctamente.', 'success');
+  deleteProvider(provider: Provider) {
+    console.log("entro")
+    this.deleteUseCase.execute(provider.proveedorId).pipe(
+      catchError(error => {
+        this.showAlert('Error', 'No se pudo eliminar la sucursal.', 'error');
+        console.error('Error al eliminar sucursal:', error);
+        return of(null);
+      })
+    ).subscribe(() => {
+      this.providers = this.providers.filter(s => s.proveedorId !== provider.proveedorId);
+      this.getProviders()
+      this.showAlert('Eliminado', 'Sucursal eliminada correctamente.', 'success');
+    });
   }
 
   confirmGeneration(event: any, providerId: number) {

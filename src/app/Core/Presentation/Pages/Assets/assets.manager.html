@@ -73,22 +73,22 @@
                 </div>
                 <div class="col-span-2 grid gap-3 grid-cols-2 grid-rows-1">
                     <app-g-select 
-                        formControlName="proveedor" 
-                        name="proveedor" 
+                        formControlName="proveedorID" 
+                        name="proveedorID" 
                         label="Proveedor" 
                         [options]="providers"
-                        placeholder="Proveedor"
-                        [validation]="assetForm.get('proveedor')!.invalid && assetForm.get('proveedor')!.touched"
-                        [errorMessage]="getErrorMessage('proveedor')">
+                        placeholder=" seleccione un Proveedor"
+                        [validation]="assetForm.get('proveedorID')!.invalid && assetForm.get('proveedorID')!.touched"
+                        [errorMessage]="getErrorMessage('proveedorID')">
                     </app-g-select>
                     <app-g-select 
-                        formControlName="sucursal" 
-                        name="sucursal" 
+                        formControlName="sucursalID" 
+                        name="sucursalID" 
                         label="Sucursal" 
                         [options]="subsidiaries"
-                        placeholder="Sucursal"
-                        [validation]="assetForm.get('sucursal')!.invalid && assetForm.get('sucursal')!.touched"
-                        [errorMessage]="getErrorMessage('sucursal')">
+                        placeholder="seleccione una Sucursal"
+                        [validation]="assetForm.get('sucursalID')!.invalid && assetForm.get('sucursalID')!.touched"
+                        [errorMessage]="getErrorMessage('sucursalID')">
                     </app-g-select>
                 </div>
                 <app-g-select 

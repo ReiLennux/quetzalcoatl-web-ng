@@ -22,9 +22,9 @@ export class GSelectInputComponent implements ControlValueAccessor {
   @Input() errorMessage = '';
   @Input() options: { value: number; label: string }[] = [{ value: 0, label: '' }];
 
-  private _value = '';
+  private _value = 0;
 
-  set value(val: string) {
+  set value(val: number) {
     if (val !== this._value) {
       this._value = val;
       this.onChange(val);
@@ -32,14 +32,14 @@ export class GSelectInputComponent implements ControlValueAccessor {
     }
   }
 
-  get value(): string {
+  get value(): number {
     return this._value;
   }
 
-  onChange: (value: string) => void = () => {};
+  onChange: (value: number) => void = () => {};
   onTouched: () => void = () => {};
 
-  writeValue(value: string): void {
+  writeValue(value: number): void {
     this._value = value;
   }
 

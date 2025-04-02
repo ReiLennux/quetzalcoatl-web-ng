@@ -18,13 +18,14 @@ export class AssetsRepository  {
         return this.http.get<Asset[]>(`${this.apiUrl}/gateway/activofijo`);
     }
     getById(id: number) : Observable<Asset> {
+        console.log("obteniendo por id", id)
         return this.http.get<Asset>(`${this.apiUrl}/gateway/activofijo/${id}`);
     }
     postData(asset: Asset)  : Observable<Asset> {
         return this.http.post<Asset>(`${this.apiUrl}/gateway/activofijo`, asset);
     }
     putData(asset: Asset)  : Observable<Asset> {
-        return this.http.put<Asset>(`${this.apiUrl}/gateway/activofijo/${asset.activoFijoID}`, asset);
+        return this.http.put<Asset>(`${this.apiUrl}/gateway/activofijo/${asset.activoFijoId}`, asset);
     }
     deleteData(id: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/gateway/activofijo/${id}`);
