@@ -93,6 +93,7 @@ export class ProvidersManagerComponent implements OnInit {
 
   onSubmit() {
     if (this.providerForm.invalid) {
+      this.providerForm.markAllAsTouched();
       Swal.fire({
         title: 'Por favor, corrige los errores del formulario.',
         icon: 'error',

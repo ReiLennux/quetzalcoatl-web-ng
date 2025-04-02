@@ -44,8 +44,8 @@ export class AssetsManagerComponent implements OnInit {
       descripcion: [], // Descripción del activo (opcional)
       serial: ['', Validators.required], // Serial obligatorio
       fechaCompra: ['', Validators.required], // Fecha de compra obligatoria
-      proveedorID: [0, Validators.required], // Proveedor obligatorio
-      sucursalID: [0, Validators.required], // Sucursal obligatoria
+      proveedorID: [null, Validators.required], // Proveedor obligatorio
+      sucursalID: [null, Validators.required], // Sucursal obligatoria
       fechaAlta: ['', Validators.required], // Fecha de alta obligatoria
       fechaBaja: [''], // Fecha de baja (opcional)
       estatus: ['', Validators.required] // Estatus obligatorio
@@ -120,27 +120,44 @@ export class AssetsManagerComponent implements OnInit {
 
   getErrorMessage(controlName: string): string {
     const control = this.assetForm.get(controlName);
+    
     if (control?.invalid && control?.touched) {
       if (control.hasError('required')) {
         return 'Este campo es obligatorio';
       }
+      if (control.hasError('minlength')) {
+        return 'Debe contener al menos 3 caracteres';
+      }
+      if (control.hasError('maxlength')) {
+        return 'No debe exceder los 500 caracteres';
+      }
+      if (control.hasError('pattern')) {
+        return 'Formato inválido';
+      }
     }
+    
     return '';
   }
+  
 
   onSubmit() {
     console.log(this.assetForm.value);
   
-    if (this.assetForm.invalid) return;
+    if (this.assetForm.invalid) {
+      this.assetForm.markAllAsTouched();
+            Swal.fire({
+              title: 'Por favor, corrige los errores del formulario.',
+              icon: 'error',
+            });
+
+      return;
+    }
   
     const formValue = { ...this.assetForm.value };
-  
-    // Convertir fechas al formato ISO 8601 con zona horaria UTC
     formValue.fechaCompra = formValue.fechaCompra ? new Date(formValue.fechaCompra).toISOString() : null;
     formValue.fechaAlta = formValue.fechaAlta ? new Date(formValue.fechaAlta).toISOString() : null;
   
     if (this.id > 0) {
-      // Si es una edición, se incluye activoFijoID y se convierte fechaBaja si tiene valor
       formValue.activoFijoId = this.id;
       formValue.fechaBaja = formValue.fechaBaja ? new Date(formValue.fechaBaja).toISOString() : null;
   
@@ -154,11 +171,9 @@ export class AssetsManagerComponent implements OnInit {
       });
   
     } else {
-      // Si es un nuevo registro, fechaBaja debe ser null y no se envía activoFijoID
       formValue.fechaBaja = null;
-      delete formValue.activoFijoId; // Asegurar que no se envía en un nuevo registro
+      delete formValue.activoFijoId;
   
-      console.log(formValue);
       this.postUseCase.execute(formValue).subscribe(() => {
         Swal.fire({
           title: 'Guardado correctamente!',
@@ -169,6 +184,7 @@ export class AssetsManagerComponent implements OnInit {
       });
     }
   }
+  
   
   
 }

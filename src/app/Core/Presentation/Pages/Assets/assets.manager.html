@@ -73,23 +73,25 @@
                 </div>
                 <div class="col-span-2 grid gap-3 grid-cols-2 grid-rows-1">
                     <app-g-select 
-                        formControlName="proveedorID" 
-                        name="proveedorID" 
-                        label="Proveedor" 
-                        [options]="providers"
-                        placeholder=" seleccione un Proveedor"
-                        [validation]="assetForm.get('proveedorID')!.invalid && assetForm.get('proveedorID')!.touched"
-                        [errorMessage]="getErrorMessage('proveedorID')">
-                    </app-g-select>
-                    <app-g-select 
-                        formControlName="sucursalID" 
-                        name="sucursalID" 
-                        label="Sucursal" 
-                        [options]="subsidiaries"
-                        placeholder="seleccione una Sucursal"
-                        [validation]="assetForm.get('sucursalID')!.invalid && assetForm.get('sucursalID')!.touched"
-                        [errorMessage]="getErrorMessage('sucursalID')">
-                    </app-g-select>
+                    formControlName="proveedorID" 
+                    name="proveedorID" 
+                    label="Proveedor" 
+                    [options]="providers"
+                    placeholder="Seleccione un Proveedor"
+                    [validation]="assetForm.get('proveedorID')!.invalid && assetForm.get('proveedorID')!.touched"
+                    [errorMessage]="getErrorMessage('proveedorID')">
+                </app-g-select>
+                
+                <app-g-select 
+                    formControlName="sucursalID" 
+                    name="sucursalID" 
+                    label="Sucursal" 
+                    [options]="subsidiaries"
+                    placeholder="Seleccione una Sucursal"
+                    [validation]="assetForm.get('sucursalID')!.invalid && assetForm.get('sucursalID')!.touched"
+                    [errorMessage]="getErrorMessage('sucursalID')">
+                </app-g-select>
+                
                 </div>
                 <app-g-select 
                     class="col-span-2"

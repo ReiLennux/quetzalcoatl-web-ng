@@ -48,7 +48,7 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
       codigoPostal: ['', [Validators.required, Validators.minLength(5)]],
       latitud: [null, [Validators.required]],
       longitud: [null, [Validators.required]],
-      fechaAlta: [new Date(), [Validators.required]], 
+      fechaAlta: ['', [Validators.required]], 
       fechaBaja: [null],
       estatus: ['', [Validators.required]]
     });
@@ -125,7 +125,14 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    if (this.subsidiaryForm.invalid) return;
+    if (this.subsidiaryForm.invalid) {
+            this.subsidiaryForm.markAllAsTouched();
+            Swal.fire({
+              title: 'Por favor, corrige los errores del formulario.',
+              icon: 'error',
+            });
+      return
+    };
     const formValue = this.subsidiaryForm.value;
     console.log(formValue);
     if (this.id > 0) {
