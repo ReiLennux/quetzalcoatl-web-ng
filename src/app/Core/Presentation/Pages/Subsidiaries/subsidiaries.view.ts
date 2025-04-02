@@ -14,6 +14,7 @@ import { DeleteUseCase } from '../../../Domain/UseCases/Subsidiaries/delete.use-
 export class SubsidiariesViewComponent implements OnInit {
   columnsName = SubsidiaryColumn;
   subsidiaries: Subsidiary[] = [];
+  isLoading = true;
 
   constructor(
     private getUseCase: GetUseCase,
@@ -39,6 +40,7 @@ export class SubsidiariesViewComponent implements OnInit {
       this.subsidiaries = (data as Subsidiary[]) || [];
       this.totalItems = this.subsidiaries.length
     });
+    this.isLoading = false;
   }
 
   getEstado(estatus: string): string {

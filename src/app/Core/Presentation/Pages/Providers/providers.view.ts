@@ -17,7 +17,7 @@ export class ProvidersViewComponent implements OnInit {
   columnsName = ProvidersColumn;
   providers: Provider[] = [];
   confirmationStatus: { [key: number]: boolean } = {};
-
+  isLoading = true;
   constructor(
     private getUseCase: GetUseCase,
     private getbyIdUseCase: GetById,
@@ -44,6 +44,7 @@ export class ProvidersViewComponent implements OnInit {
       this.providers = data || [];
       this.totalItems = this.providers.length
     });
+    this.isLoading = false;
   }
 
   deleteProvider(provider: Provider) {

@@ -14,6 +14,7 @@ import { of } from 'rxjs';
 export class AssetsViewComponent implements OnInit {
   columnsName = AssetsColumns;
   assets: Asset[] = [];
+  isLoading = true;
 
   constructor(
     private getUseCase: GetUseCase,
@@ -30,11 +31,13 @@ export class AssetsViewComponent implements OnInit {
           text: 'No se pudieron cargar los activos.',
           icon: 'error',
         });
+        this.isLoading = false
         return of([]); // En caso de error, retornar un array vacío
       })
     ).subscribe((assets: Asset[]) => {
       this.assets = assets;
       this.totalItems = assets.length; // Definir el total de elementos dinámicamente
+      this.isLoading = false
     });
   }
 

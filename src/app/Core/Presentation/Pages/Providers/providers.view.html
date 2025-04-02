@@ -150,7 +150,7 @@
                     </tbody>
                 </table>
             </div>
-            <div *ngIf="providers.length === 0" class="w-full flex justify-center items-center">
+            <div *ngIf="isLoading" class="w-full flex justify-center items-center">
                 <div class="px-3 py-1 text-md font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">cargando...</div>
             </div>
             <app-g-paginator [page]="currentPage" [pageSize]="itemsPerPage" [totalSize]="totalItems"
