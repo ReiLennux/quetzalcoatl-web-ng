@@ -141,18 +141,23 @@ export class ProvidersViewComponent implements OnInit {
 
 
     //#region Modal Helpers
-    openModals: { [key: string]: boolean } = {};
+    openModals: { [key: number]: boolean } = {};
 
-    toggleModal(dbId: string): void {
+    toggleModal(dbId: number): void {
       this.openModals[dbId] = !this.openModals[dbId];
     }
-    isModalOpen(dbId: string): boolean {
+    isModalOpen(dbId: number): boolean {
       return !!this.openModals[dbId];
     }
-    confirmBackup(dbId: string): void {
-      // Lógica para confirmar el backup
-      console.log('Generando backup para:', dbId);
-      this.toggleModal(dbId);
+
+
+    openAPIModals: { [key: number]: boolean } = {};
+
+    toggleAPIModal(dbId: number): void {
+      this.openAPIModals[dbId] = !this.openAPIModals[dbId];
+    }
+    isAPIModalOpen(dbId: number): boolean {
+      return !!this.openAPIModals[dbId];
     }
   
     //#endregion
