@@ -1,5 +1,6 @@
-import { ProvidersRepository } from '../../../Data/Repositories/providers.repository';
+
 import { Injectable } from "@angular/core";
+import { SubsidiariesRepository } from "../../../Data/Repositories/subsidiaries.repository";
 
 
 
@@ -8,10 +9,10 @@ import { Injectable } from "@angular/core";
 })
 export class DeleteUseCase {
     constructor(
-        private providersRepository: ProvidersRepository
+        private subsidiariesRepository: SubsidiariesRepository
     ) { }
 
     execute(id: number) {
-        return this.providersRepository.deleteProvider(id);
+        return this.subsidiariesRepository.deleteSubsidiary(id);
     }
 }

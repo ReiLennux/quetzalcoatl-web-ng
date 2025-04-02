@@ -6,3 +6,12 @@
 .error-message {
     @apply mt-1 text-xs text-red-600 dark:text-red-400
 }
+
+.leaflet-control-attribution {
+    font-size: 10px !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+
+.leaflet-control-zoom {
+    margin-top: 50px !important;
+}

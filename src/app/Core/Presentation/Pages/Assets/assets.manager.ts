@@ -40,7 +40,7 @@ export class AssetsManagerComponent implements OnInit {
     this.assetForm = this.fb.group({
       activoFijoID: [], // Asumí que el ID puede no ser requerido en la creación
       nombre: ['', Validators.required], // Nombre del activo
-      descripcion: [''], // Descripción del activo (opcional)
+      descripcion: [], // Descripción del activo (opcional)
       serial: ['', Validators.required], // Serial obligatorio
       fechaCompra: ['', Validators.required], // Fecha de compra obligatoria
       proveedor: ['', Validators.required], // Proveedor obligatorio
@@ -84,7 +84,7 @@ export class AssetsManagerComponent implements OnInit {
         Swal.fire({
           title: 'Error',
           text: 'No se pudieron cargar los proveedores.',
-          icon: 'error'
+          icon: 'error',
         });
         return of([]); // Retornar un array vacío en caso de error
       })
@@ -126,16 +126,20 @@ export class AssetsManagerComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.assetForm.value);
+    
     if (this.assetForm.invalid) return;
-    const formValue = this.assetForm.value;
-
-    // Asegurando que las fechas estén en formato correcto para el backend
-    formValue.FechaCompra = new Date(formValue.FechaCompra).toISOString();
-    formValue.FechaAlta = new Date(formValue.FechaAlta).toISOString();
-    formValue.FechaBaja = formValue.FechaBaja ? new Date(formValue.FechaBaja).toISOString() : null;
-
+    
+    const formValue = { ...this.assetForm.value }; // Copia segura del formulario
+  
+    // Convertir fechas a ISO solo si existen
+    formValue.FechaCompra = formValue.FechaCompra ? new Date(formValue.FechaCompra).toISOString() : null;
+    formValue.FechaAlta = formValue.FechaAlta ? new Date(formValue.FechaAlta).toISOString() : null;
+  
     if (this.id > 0) {
-      // Actualizar el activo existente
+      // Si se edita un registro, convertir FechaBaja solo si tiene valor
+      formValue.FechaBaja = formValue.FechaBaja ? new Date(formValue.FechaBaja).toISOString() : null;
+  
       this.putUseCase.execute(formValue).subscribe(() => {
         Swal.fire({
           title: 'Actualizado correctamente!',
@@ -144,8 +148,11 @@ export class AssetsManagerComponent implements OnInit {
         });
         this.router.navigate(['/assets']);
       });
+  
     } else {
-      // Crear un nuevo activo
+      // Si es un nuevo registro, asegurarse de que FechaBaja sea null
+      formValue.FechaBaja = null;
+  
       this.postUseCase.execute(formValue).subscribe(() => {
         Swal.fire({
           title: 'Guardado correctamente!',
@@ -156,4 +163,5 @@ export class AssetsManagerComponent implements OnInit {
       });
     }
   }
+  
 }

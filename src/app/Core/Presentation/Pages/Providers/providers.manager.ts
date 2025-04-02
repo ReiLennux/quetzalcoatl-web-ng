@@ -33,7 +33,7 @@ export class ProvidersManagerComponent implements OnInit {
   ) {
     // Actualización del FormGroup según el modelo Provider
     this.providerForm = this.fb.group({
-      proveedorID: [0],  // No se requiere validación si es solo para editar
+      proveedorId: [0],  // No se requiere validación si es solo para editar
       nombre: ['', [Validators.required, Validators.maxLength(200)]],
 
       tipo: ['', Validators.required],
@@ -55,7 +55,7 @@ export class ProvidersManagerComponent implements OnInit {
         this.id = +id;
         this.getbyIdUseCase.execute(this.id).subscribe((data: Provider) => {
           this.providerForm.patchValue({
-            proveedorID: data.proveedorId,
+            proveedorId: data.proveedorId,
             nombre: data.nombre,
             tipo: data.tipo,
             direccion: data.direccion,
@@ -101,6 +101,7 @@ export class ProvidersManagerComponent implements OnInit {
     }
 
     const formData = this.providerForm.value;
+    console.log(formData);
 
     if (this.id > 0) {
       this.putUseCase.execute(formData).subscribe(
@@ -108,6 +109,7 @@ export class ProvidersManagerComponent implements OnInit {
         () => this.handleError()
       );
     } else {
+      formData.fechaBaja = null;  // No se requiere para un nuevo registro
       this.postUseCase.execute(formData).subscribe(
         () => this.handleSuccess('Proveedor creado correctamente'),
         () => this.handleError()

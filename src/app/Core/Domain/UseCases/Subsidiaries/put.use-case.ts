@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { ProvidersRepository } from "../../../Data/Repositories/providers.repository";
-import { Provider } from "../../Models/provider.model";
+import { SubsidiariesRepository } from "../../../Data/Repositories/subsidiaries.repository";
+import { Subsidiary } from "../../Models/subsidiary.model";
 
 
 
@@ -9,10 +9,10 @@ import { Provider } from "../../Models/provider.model";
 })
 export class PutUseCase {
     constructor(
-        private providersRepository: ProvidersRepository
+        private subsidiariesRepository: SubsidiariesRepository
     ) { }
 
-    execute(provider: Provider) {
-        return this.providersRepository.updateProvider(provider);
+    execute(subsidiary: Subsidiary) {
+        return this.subsidiariesRepository.updateSubsidiary(subsidiary);
     }
 }

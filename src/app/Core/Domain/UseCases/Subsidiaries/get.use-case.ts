@@ -1,5 +1,5 @@
+import { SubsidiariesRepository } from './../../../Data/Repositories/subsidiaries.repository';
 import { Injectable } from "@angular/core";
-import { SubsidiariesRepository } from "../../../Data/Repositories/subsidiaries.repository";
 
 
 
@@ -8,10 +8,10 @@ import { SubsidiariesRepository } from "../../../Data/Repositories/subsidiaries.
 })
 export class GetUseCase {
     constructor(
-        private ProvidersRepository: SubsidiariesRepository
+        private subsidiariesRepository: SubsidiariesRepository
     ) { }
 
     execute() {
-        return this.ProvidersRepository.getSubsidiaries();
+        return this.subsidiariesRepository.getSubsidiaries();
     }
 }

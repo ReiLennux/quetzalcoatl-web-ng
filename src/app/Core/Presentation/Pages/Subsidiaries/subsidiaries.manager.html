@@ -1,8 +1,7 @@
 <div class="w-full h-screen flex justify-center items-center">
-
     <div
-        class="m-auto block w-2/6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
-        <a  href="/subsidiaries"
+        class="m-auto block w-full md:w-4/6 lg:w-3/6 xl:w-2/6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <a href="/subsidiaries"
             class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-500 rounded-lg">
             <i class="fa-solid fa-arrow-left mr-3"></i>
             Regresar
@@ -20,31 +19,35 @@
         <form [formGroup]="subsidiaryForm" (ngSubmit)="onSubmit()">
             <div class="grid gap-4 md:grid-cols-2 mb-8">
                 <div>
-                    <app-g-text 
-                        formControlName="Nombre" 
-                        name="Nombre" 
-                        label="Nombre" 
-                        placeholder="Nombre" 
-                        type="text"
-                        [validation]="subsidiaryForm.get('Nombre')!.invalid && subsidiaryForm.get('Nombre')!.touched"
-                        [errorMessage]="getErrorMessage('Nombre')">
+                    <app-g-text formControlName="nombre" name="nombre" label="Nombre" placeholder="Nombre" type="text"
+                        [validation]="subsidiaryForm.get('nombre')!.invalid && subsidiaryForm.get('nombre')!.touched"
+                        [errorMessage]="getErrorMessage('nombre')">
                     </app-g-text>
                 </div>
                 <div>
-                    <app-g-text formControlName="Direccion" name="Direccion" label="Direccion"
-                        placeholder="Direccion de la sucursal" type="text"
-                        [validation]="subsidiaryForm.get('Direccion')!.invalid && subsidiaryForm.get('Direccion')!.touched"
-                        [errorMessage]="getErrorMessage('Direccion')">
+                    <app-g-text formControlName="direccion" name="direccion" label="Direccion"
+                        placeholder="Direccion de la sucursal" type="text" [readOnly]="true" 
+                        [validation]="subsidiaryForm.get('direccion')!.invalid && subsidiaryForm.get('direccion')!.touched"
+                        [errorMessage]="getErrorMessage('direccion')">
                     </app-g-text>
                 </div>
-                <div class="self-center">
-                    <app-g-select 
-                        formControlName="Estatus" 
-                        name="Estatus" 
-                        label="Estatus" 
-                        [options]="statuses"
-                        [validation]="subsidiaryForm.get('Estatus')!.invalid && subsidiaryForm.get('Estatus')!.touched"
-                        [errorMessage]="getErrorMessage('Estatus')">
+
+                <div id="map" class="h-60 w-full mb-4 rounded-lg border col-span-2 overflow-hidden"></div>
+
+                <app-g-text formControlName="fechaAlta" name="fechaAlta" label="Fecha de inicio" type="date"
+                    [validation]="subsidiaryForm.get('fechaAlta')!.invalid && subsidiaryForm.get('fechaAlta')!.touched"
+                    [errorMessage]="getErrorMessage('fechaAlta')">
+                </app-g-text>
+                <app-g-text formControlName="fechaBaja" name="fechaBaja" label="Fecha de termino" type="date"
+                    [validation]="subsidiaryForm.get('fechaBaja')!.invalid && subsidiaryForm.get('fechaBaja')!.touched"
+                    [errorMessage]="getErrorMessage('fechaBaja')" [readOnly]="id<=0 ? true : false"
+                    [disabled]="id<=0 ? true : false">
+                </app-g-text>
+
+                <div class="self-center col-span-2">
+                    <app-g-select formControlName="estatus" name="estatus" label="estatus" [options]="statuses"
+                        [validation]="subsidiaryForm.get('estatus')!.invalid && subsidiaryForm.get('estatus')!.touched"
+                        [errorMessage]="getErrorMessage('estatus')">
                     </app-g-select>
                 </div>
             </div>

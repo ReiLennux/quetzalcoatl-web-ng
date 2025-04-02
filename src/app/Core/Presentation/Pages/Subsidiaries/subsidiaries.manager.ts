@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Subsidiary } from '../../../Domain/Models/subsidiary.model';
 import Swal from 'sweetalert2';
 import { GetByIdUseCase } from '../../../Domain/UseCases/Subsidiaries/get-by-id.use.case';
@@ -11,19 +12,22 @@ import { PostUseCase } from '../../../Domain/UseCases/Subsidiaries/post.use-case
   selector: 'app-subsidiaries',
   templateUrl: './subsidiaries.manager.html',
 })
-
-export class SubsidiariesManagerComponent implements OnInit {
+export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
   subsidiaryForm: FormGroup;
   id = 0;
+  map: any;
+  marker: any;
+  L: any;
+
   statuses = [
     { value: 1, label: 'Activo' },
     { value: 2, label: 'Inactivo' },
     { value: 3, label: 'Suspendido' }
-  ]
+  ];
   types = [
     { value: 1, label: 'Principal' },
     { value: 2, label: 'Sucursal' }
-  ]
+  ];
   
   constructor(
     private fb: FormBuilder, 
@@ -31,26 +35,30 @@ export class SubsidiariesManagerComponent implements OnInit {
     private putUseCase: PutUseCase,
     private postUseCase: PostUseCase,
     private router: Router, 
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {
-    
-    // Aquí creamos el formulario con las validaciones correctas
     this.subsidiaryForm = this.fb.group({
-      SucursalId: [0],
-      Nombre: ['', [Validators.required, Validators.minLength(3)]],
-
-      Direccion: ['', [Validators.required, Validators.minLength(6)]],
-      Ciudad: ['', [Validators.required, Validators.minLength(3)]],
-      Estado: ['', [Validators.required]],
-      Pais: ['', [Validators.required]],
-      CodigoPostal: ['', [Validators.required, Validators.minLength(5)]],
-      Latitud: [null, [Validators.required]],
-      Longitud: [null, [Validators.required]],
-      
-      FechaAlta: [new Date(), [Validators.required]], 
-      FechaBaja: [null],
-      Estatus: ['', [Validators.required]]
+      sucursalId: [0],
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      direccion: ['', [Validators.required, Validators.minLength(6)]],
+      ciudad: ['', [Validators.required, Validators.minLength(3)]],
+      estado: ['', [Validators.required]],
+      pais: ['', [Validators.required]],
+      codigoPostal: ['', [Validators.required, Validators.minLength(5)]],
+      latitud: [null, [Validators.required]],
+      longitud: [null, [Validators.required]],
+      fechaAlta: [new Date(), [Validators.required]], 
+      fechaBaja: [null],
+      estatus: ['', [Validators.required]]
     });
+  }
+
+  async ngAfterViewInit() {
+    if (typeof window !== 'undefined') {
+      this.L = await import('leaflet');
+      this.initializeMap();
+    }
   }
 
   ngOnInit() {
@@ -60,68 +68,90 @@ export class SubsidiariesManagerComponent implements OnInit {
         this.id = +id;
         this.GetUseCase.execute(this.id).subscribe((data: any) => {
           const subsidiaryData = data as Subsidiary;
-
-          // Asignamos los valores del SubsidiaryData al formulario
-          this.subsidiaryForm.patchValue({
-            SucursalId: subsidiaryData.sucursalId,
-            Nombre: subsidiaryData.nombre,
-            Direccion: subsidiaryData.direccion,
-            Ciudad: subsidiaryData.ciudad,
-            Estado: subsidiaryData.estado,
-            Pais: subsidiaryData.pais,
-            CodigoPostal: subsidiaryData.codigoPostal,
-            Latitud: subsidiaryData.latitud,
-            Longitud: subsidiaryData.longitud,
-            FechaAlta: subsidiaryData.fechaAlta,
-            FechaBaja: subsidiaryData.fechaBaja,
-            Estatus: subsidiaryData.estatus
-          });
+          this.subsidiaryForm.patchValue(subsidiaryData);
         });
       }
     });
   }
 
+  initializeMap() {
+    const defaultCoords = this.getInitialCoordinates();
+    this.map = this.L.map('map').setView(defaultCoords, 12);
+    this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(this.map);
+    
+    setTimeout(() => this.map.invalidateSize(), 0);
+    
+    this.map.on('click', (e: any) => {
+      const { lat, lng } = e.latlng;
+      this.updateFormAndMap(lat, lng);
+    });
+  }
+
+  private getInitialCoordinates(): [number, number] {
+    return [
+      this.subsidiaryForm.value.latitud || 19.432608,
+      this.subsidiaryForm.value.longitud || -99.133209
+    ];
+  }
+
+  private updateMapView(): void {
+    const lat = this.subsidiaryForm.value.latitud;
+    const lng = this.subsidiaryForm.value.longitud;
+    
+    this.map.setView([lat, lng], 12);
+    if (this.marker) this.map.removeLayer(this.marker);
+    this.marker = this.L.marker([lat, lng]).addTo(this.map);
+  }
+
+  private updateFormAndMap(lat: number, lng: number): void {
+    this.subsidiaryForm.patchValue({ latitud: lat, longitud: lng });
+    this.updateMapView();
+    this.obtenerdireccion(lat, lng);
+  }
+
+  obtenerdireccion(lat: number, lng: number): void {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+    this.http.get<any>(url).subscribe((data) => {
+      this.subsidiaryForm.patchValue({
+        direccion: data.display_name || '',
+        ciudad: data.address.city || data.address.town || '',
+        estado: data.address.state || '',
+        pais: data.address.country || '',
+        codigoPostal: data.address.postcode || ''
+      });
+    });
+  }
+
+  onSubmit() {
+    if (this.subsidiaryForm.invalid) return;
+    const formValue = this.subsidiaryForm.value;
+    console.log(formValue);
+    if (this.id > 0) {
+      this.putUseCase.execute(formValue).subscribe(() => {
+        Swal.fire({ title: 'Sucursal actualizada!', icon: 'success', confirmButtonText: 'Aceptar' });
+        this.router.navigate(['/subsidiaries']);
+      });
+    } else {
+      this.postUseCase.execute(formValue).subscribe(() => {
+        Swal.fire({ title: 'Sucursal guardada!', icon: 'success', confirmButtonText: 'Aceptar' });
+        this.router.navigate(['/subsidiaries']);
+      });
+    }
+  }
+
   getErrorMessage(controlName: string): string {
     const control = this.subsidiaryForm.get(controlName);
-
     if (control?.invalid && control?.touched) {
       if (control.hasError('required')) {
         return 'Este campo es obligatorio';
       }
+
       if (control.hasError('minlength')) {
         return `Debe tener al menos ${control.errors?.['minlength'].requiredLength} caracteres`;
       }
     }
     return '';  // Si no hay error
-  }
-
-  onSubmit() {
-    if (this.subsidiaryForm.invalid) {
-      return;
-    }
-
-    // Preparamos los datos para ser enviados
-    const formValue = this.subsidiaryForm.value;
-
-    // Enviar la información
-    if (this.id > 0) {
-      this.putUseCase.execute(formValue).subscribe(() => {
-        Swal.fire({
-          title: 'Sucursal actualizada!',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-        this.router.navigate(['/subsidiaries']);
-      });
-    } else {
-      this.postUseCase.execute(formValue).subscribe(() => {
-        Swal.fire({
-          title: 'Sucursal guardada!',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-        this.router.navigate(['/subsidiaries']);
-      });
-    }
   }
 }
