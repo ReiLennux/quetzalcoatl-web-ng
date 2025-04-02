@@ -73,20 +73,14 @@ export class AssetsViewComponent implements OnInit {
 
 
   //#region Modal Helpers
-  openModals: { [key: string]: boolean } = {};
+  openModals: { [key: number]: boolean } = {};
 
-  toggleModal(dbId: string): void {
-    this.openModals[dbId] = !this.openModals[dbId];
+  toggleModal(modalId: number): void {
+    this.openModals[modalId] = !this.openModals[modalId];
   }
-  isModalOpen(dbId: string): boolean {
-    return !!this.openModals[dbId];
+  isModalOpen(modalId: number): boolean {
+    return !!this.openModals[modalId];
   }
-  confirmBackup(dbId: string): void {
-    // Lógica para confirmar el backup
-    console.log('Generando backup para:', dbId);
-    this.toggleModal(dbId);
-  }
-
   //#endregion
 
 }
