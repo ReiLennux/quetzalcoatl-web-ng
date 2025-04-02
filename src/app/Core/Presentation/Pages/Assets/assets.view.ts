@@ -18,7 +18,7 @@ export class AssetsViewComponent implements OnInit {
   constructor(
     private getUseCase: GetUseCase,
     private deleteUseCase: DeleteUseCase
-  ) {}
+  ) { }
 
   ngOnInit() {
     // Obtener los activos y manejar posibles errores
@@ -34,6 +34,7 @@ export class AssetsViewComponent implements OnInit {
       })
     ).subscribe((assets: Asset[]) => {
       this.assets = assets;
+      this.totalItems = assets.length; // Definir el total de elementos dinámicamente
     });
   }
 
@@ -43,12 +44,12 @@ export class AssetsViewComponent implements OnInit {
     } else if (estatus === '2') {
       return "Inactivo";
     } else {
-      return "Dado de Baja"; // Or handle other statuses as needed
+      return "Dado de Baja"; // Manejar otros estados según sea necesario
     }
   }
 
   deleteAsset(id: number) {
-    // Proceder con la eliminación directamente, sin confirmación aquí
+    // Proceder con la eliminación directamente
     this.deleteUseCase.execute(id).pipe(
       catchError((error) => {
         console.error('Error al eliminar activo:', error);
@@ -62,6 +63,7 @@ export class AssetsViewComponent implements OnInit {
     ).subscribe(() => {
       // Actualizar la lista de activos eliminando el activo
       this.assets = this.assets.filter((asset) => asset.activoFijoId !== id);
+      this.totalItems = this.assets.length; // Actualizar total de elementos
       Swal.fire({
         title: 'Eliminado',
         text: 'El activo ha sido eliminado con éxito.',
@@ -70,7 +72,21 @@ export class AssetsViewComponent implements OnInit {
     });
   }
 
+  //#region Paginator Helpers
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalItems = 0;
 
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    console.log("Cambiando a página:", newPage);
+  }
+
+  get paginatedAssets(): Asset[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.assets.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+  //#endregion
 
   //#region Modal Helpers
   openModals: { [key: number]: boolean } = {};
@@ -78,9 +94,9 @@ export class AssetsViewComponent implements OnInit {
   toggleModal(modalId: number): void {
     this.openModals[modalId] = !this.openModals[modalId];
   }
+
   isModalOpen(modalId: number): boolean {
     return !!this.openModals[modalId];
   }
   //#endregion
-
 }
