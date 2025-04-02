@@ -1,104 +1,116 @@
 <div class="w-full h-screen flex justify-center items-center">
     <div
-    class="m-auto block w-5/6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm  dark:bg-gray-800 dark:border-gray-700">
-    <div>
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Sucursales</h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400">Listado de sucursales</p>
-    </div>
-    <div class="w-full flex justify-end p-4">
-        <app-g-add name="sucursal" url="subsidiaries/manager"></app-g-add>
-    </div>
-    <div class="m-2">
-        <div class="m-2 relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" aria-label="Tabla de datos de Sucursales">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th class="px-6 py-3">Nombre</th>
-                        <th class="px-6 py-3">Direccion</th>
-                        <th class="px-6 py-3">Estado</th>
+        class="m-auto block w-5/6 p-6 bg-white border border-gray-200 rounded-lg shadow-sm  dark:bg-gray-800 dark:border-gray-700">
+        <div>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Sucursales</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400">Listado de sucursales</p>
+        </div>
+        <div class="w-full flex justify-end p-4">
+            <app-g-add name="sucursal" url="subsidiaries/manager"></app-g-add>
+        </div>
+        <div class="m-2">
+            <div class="m-2 relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                    aria-label="Tabla de datos de Sucursales">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th class="px-6 py-3">Nombre</th>
+                            <th class="px-6 py-3">Direccion</th>
+                            <th class="px-6 py-3">Estado</th>
 
-                        <th class="px-6 py-3">Detalles</th>
-                        <th class="px-6 py-3">Editar</th>
-                        <th class="px-6 py-3">Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let subsidiary of subsidiaries" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{subsidiary.nombre}}
-                        </th>
-                        <td class="px-6 py-4">
-                            {{subsidiary.direccion}}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ getEstado(subsidiary.estatus)}}
-                        </td>
-                        <td class="px-6 py-4">
-                            <!-- Botón para abrir el modal -->
-                            <button (click)="toggleModal(subsidiary.sucursalId)"
+                            <th class="px-6 py-3">Detalles</th>
+                            <th class="px-6 py-3">Editar</th>
+                            <th class="px-6 py-3">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let subsidiary of paginatedSubsidiaries"
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{subsidiary.nombre}}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{subsidiary.direccion}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ getEstado(subsidiary.estatus)}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <!-- Botón para abrir el modal -->
+                                <button (click)="toggleModal(subsidiary.sucursalId)"
                                     class="px-3 py-2 text-xs font-medium text-center focus:outline-none text-white bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 rounded dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     type="button">
-                                <i class="fa-solid fa-info fa-sm"></i>
-                                Detalles
-                            </button>
+                                    <i class="fa-solid fa-info fa-sm"></i>
+                                    Detalles
+                                </button>
 
-                            <!-- Modal -->
-                            <div *ngIf="isModalOpen(subsidiary.sucursalId)" data-modal-backdrop="static"
-                                 tabindex="-1" aria-hidden="true"
-                                 class="fixed inset-0 z-50 flex items-center justify-center bg-[#00000030]">
-                                <div class="relative p-4 w-full max-w-2xl max-h-full">
-                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                        <!-- Header -->
-                                        <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
-                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                                Acerca de {{subsidiary.direccion}}
-                                            </h3>
-                                            <button type="button"
+                                <!-- Modal -->
+                                <div *ngIf="isModalOpen(subsidiary.sucursalId)" data-modal-backdrop="static"
+                                    tabindex="-1" aria-hidden="true"
+                                    class="fixed inset-0 z-50 flex items-center justify-center bg-[#00000030]">
+                                    <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Header -->
+                                            <div
+                                                class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                    Acerca de {{subsidiary.direccion}}
+                                                </h3>
+                                                <button type="button"
                                                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                                     (click)="toggleModal(subsidiary.sucursalId)">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </button>
-                                        </div>
-                                        <!-- Cuerpo -->
-                                        <div class="p-4 space-y-4">
-                                            <p class="text-gray-900 dark:text-white">Ciudad: {{subsidiary.ciudad}}</p>
-                                            <p class="text-gray-900 dark:text-white">Estado: {{subsidiary.estado}}</p>
-                                            <p class="text-gray-900 dark:text-white">Pais: {{subsidiary.pais}}</p>
-                                            <p class="text-gray-900 dark:text-white">C.P.: {{subsidiary.codigoPostal}}</p>
-                                            <p class="text-gray-900 dark:text-white">Fecha Alta: {{subsidiary.fechaAlta}}</p>
-                                            <p class="text-gray-900 dark:text-white">Fecha Baja: {{subsidiary.fechaBaja}}</p>
-                                        </div>
-                                        <!-- Footer -->
-                                        <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                            <button (click)="toggleModal(subsidiary.sucursalId)"
-                                                    type="button"
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </button>
+                                            </div>
+                                            <!-- Cuerpo -->
+                                            <div class="p-4 space-y-4">
+                                                <p class="text-gray-900 dark:text-white">Ciudad: {{subsidiary.ciudad}}
+                                                </p>
+                                                <p class="text-gray-900 dark:text-white">Estado: {{subsidiary.estado}}
+                                                </p>
+                                                <p class="text-gray-900 dark:text-white">Pais: {{subsidiary.pais}}</p>
+                                                <p class="text-gray-900 dark:text-white">C.P.:
+                                                    {{subsidiary.codigoPostal}}</p>
+                                                <p class="text-gray-900 dark:text-white">Fecha Alta:
+                                                    {{subsidiary.fechaAlta}}</p>
+                                                <p class="text-gray-900 dark:text-white">Fecha Baja:
+                                                    {{subsidiary.fechaBaja}}</p>
+                                            </div>
+                                            <!-- Footer -->
+                                            <div
+                                                class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                <button (click)="toggleModal(subsidiary.sucursalId)" type="button"
                                                     class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                                                Aceptar
-                                            </button>
+                                                    Aceptar
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                        <app-g-edit url="manager" [id]="subsidiary.sucursalId"></app-g-edit>
-                        </td>
-                        <td class="px-6 py-4">
-                            <app-g-delete [id]="subsidiary.sucursalId" (confirmDeletion)="deleteSubsidiary(subsidiary)"></app-g-delete>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="px-6 py-4">
+                                <app-g-edit url="manager" [id]="subsidiary.sucursalId"></app-g-edit>
+                            </td>
+                            <td class="px-6 py-4">
+                                <app-g-delete [id]="subsidiary.sucursalId"
+                                    (confirmDeletion)="deleteSubsidiary(subsidiary)"></app-g-delete>
+                            </td>
+                        </tr>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="subsidiaries.length === 0" class="w-full flex justify-center items-center">
+                <div
+                    class="px-3 py-1 text-md font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">
+                    cargando...</div>
+            </div>
+            <app-g-paginator [page]="currentPage" [pageSize]="itemsPerPage" [totalSize]="totalItems"
+                (pageChange)="onPageChange($event)">
+            </app-g-paginator>
         </div>
-        <div *ngIf="subsidiaries.length === 0" class="w-full flex justify-center items-center">
-            <div class="px-3 py-1 text-md font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">cargando...</div>
-        </div>
-        <app-g-paginator></app-g-paginator>
+
     </div>
 
 </div>
-
-</div>
-
-

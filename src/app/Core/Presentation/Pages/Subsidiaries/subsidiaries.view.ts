@@ -18,25 +18,26 @@ export class SubsidiariesViewComponent implements OnInit {
   constructor(
     private getUseCase: GetUseCase,
     private deleteUseCase: DeleteUseCase
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getSubsidiaries()
   }
 
-  getSubsidiaries(){
+  getSubsidiaries() {
     this.getUseCase.execute().pipe(
       catchError(error => {
-                Swal.fire({
-                  title: 'Error',
-                  text: 'No se pudieron cargar las sucursales.',
-                  icon: 'error',
-                });
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudieron cargar las sucursales.',
+          icon: 'error',
+        });
         console.error('Error al obtener las sucursales:', error);
         return of([] as Subsidiary[]);
       })
     ).subscribe((data: Object | Subsidiary[]) => {
       this.subsidiaries = (data as Subsidiary[]) || [];
+      this.totalItems = this.subsidiaries.length
     });
   }
 
@@ -76,14 +77,32 @@ export class SubsidiariesViewComponent implements OnInit {
 
 
 
-    //#region Modal Helpers
-    openModals: { [key: number]: boolean } = {};
 
-    toggleModal(dbId: number): void {
-      this.openModals[dbId] = !this.openModals[dbId];
-    }
-    isModalOpen(dbId: number): boolean {
-      return !!this.openModals[dbId];
-    }
-    //#endregion
+  //#region Paginator Helpers
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalItems = 0;
+
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    console.log("Cambiando a página:", newPage);
+  }
+
+  get paginatedSubsidiaries(): Subsidiary[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.subsidiaries.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+  //#endregion
+
+
+  //#region Modal Helpers
+  openModals: { [key: number]: boolean } = {};
+
+  toggleModal(dbId: number): void {
+    this.openModals[dbId] = !this.openModals[dbId];
+  }
+  isModalOpen(dbId: number): boolean {
+    return !!this.openModals[dbId];
+  }
+  //#endregion
 }
