@@ -159,6 +159,5 @@ export class ProvidersViewComponent implements OnInit {
     isAPIModalOpen(dbId: number): boolean {
       return !!this.openAPIModals[dbId];
     }
-  
     //#endregion
 }
