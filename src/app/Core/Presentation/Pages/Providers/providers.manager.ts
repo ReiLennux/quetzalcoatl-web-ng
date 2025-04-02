@@ -103,7 +103,6 @@ export class ProvidersManagerComponent implements OnInit {
     }
 
     const formData = this.providerForm.value;
-    console.log(formData);
 
     if (this.id > 0) {
       this.putUseCase.execute(formData).subscribe(

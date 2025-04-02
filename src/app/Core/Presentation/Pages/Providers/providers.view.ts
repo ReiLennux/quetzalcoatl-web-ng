@@ -47,7 +47,6 @@ export class ProvidersViewComponent implements OnInit {
   }
 
   deleteProvider(provider: Provider) {
-    console.log("entro")
     this.deleteUseCase.execute(provider.proveedorId).pipe(
       catchError(error => {
         this.showAlert('Error', 'No se pudo eliminar la sucursal.', 'error');
@@ -149,7 +148,6 @@ export class ProvidersViewComponent implements OnInit {
 
   onPageChange(newPage: number) {
     this.currentPage = newPage;
-    console.log("Cambiando a página:", newPage);
   }
 
   get paginatedProvider(): Provider[] {

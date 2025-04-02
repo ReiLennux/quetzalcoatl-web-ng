@@ -79,7 +79,6 @@ export class AssetsViewComponent implements OnInit {
 
   onPageChange(newPage: number) {
     this.currentPage = newPage;
-    console.log("Cambiando a página:", newPage);
   }
 
   get paginatedAssets(): Asset[] {

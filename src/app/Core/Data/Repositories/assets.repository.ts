@@ -18,7 +18,6 @@ export class AssetsRepository  {
         return this.http.get<Asset[]>(`${this.apiUrl}/gateway/activofijo`);
     }
     getById(id: number) : Observable<Asset> {
-        console.log("obteniendo por id", id)
         return this.http.get<Asset>(`${this.apiUrl}/gateway/activofijo/${id}`);
     }
     postData(asset: Asset)  : Observable<Asset> {

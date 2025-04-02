@@ -134,7 +134,6 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
       return
     };
     const formValue = this.subsidiaryForm.value;
-    console.log(formValue);
     if (this.id > 0) {
       this.putUseCase.execute(formValue).subscribe(() => {
         Swal.fire({ title: 'Sucursal actualizada!', icon: 'success', confirmButtonText: 'Aceptar' });

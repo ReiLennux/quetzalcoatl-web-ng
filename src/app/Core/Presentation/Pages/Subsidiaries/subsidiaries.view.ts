@@ -85,7 +85,6 @@ export class SubsidiariesViewComponent implements OnInit {
 
   onPageChange(newPage: number) {
     this.currentPage = newPage;
-    console.log("Cambiando a página:", newPage);
   }
 
   get paginatedSubsidiaries(): Subsidiary[] {

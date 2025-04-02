@@ -57,9 +57,7 @@ export class AssetsManagerComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.id = +id;
-        console.log("obtenendo los datos de ",this.id)
         this.getByIdUseCase.execute(this.id).subscribe((data: Asset) => {
-          console.log("aqui data: ",data)
           // Patch the form values based on the response data
           this.assetForm.patchValue({
             activoFijoId: data.activoFijoId,
@@ -140,8 +138,6 @@ export class AssetsManagerComponent implements OnInit {
   }
   
   onSubmit() {
-    console.log(this.assetForm.value);
-  
     if (this.assetForm.invalid) {
       this.assetForm.markAllAsTouched();
             Swal.fire({
