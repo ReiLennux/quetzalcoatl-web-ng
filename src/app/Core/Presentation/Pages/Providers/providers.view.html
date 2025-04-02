@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let provider of providers" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                        <tr *ngFor="let provider of paginatedProvider" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{provider.nombre}}
                             </th>
@@ -153,7 +153,9 @@
             <div *ngIf="providers.length === 0" class="w-full flex justify-center items-center">
                 <div class="px-3 py-1 text-md font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse dark:bg-blue-900 dark:text-blue-200">cargando...</div>
             </div>
-            <app-g-paginator></app-g-paginator>
+            <app-g-paginator [page]="currentPage" [pageSize]="itemsPerPage" [totalSize]="totalItems"
+                (pageChange)="onPageChange($event)">
+            </app-g-paginator>
         </div>
     </div>
 </div>

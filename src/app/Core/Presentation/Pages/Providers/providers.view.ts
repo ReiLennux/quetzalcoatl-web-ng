@@ -42,6 +42,7 @@ export class ProvidersViewComponent implements OnInit {
       })
     ).subscribe((data: Provider[]) => {
       this.providers = data || [];
+      this.totalItems = this.providers.length
     });
   }
 
@@ -139,6 +140,23 @@ export class ProvidersViewComponent implements OnInit {
     });
   }
 
+
+
+  //#region Paginator Helpers
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalItems = 0;
+
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    console.log("Cambiando a página:", newPage);
+  }
+
+  get paginatedProvider(): Provider[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.providers.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+  //#endregion
 
     //#region Modal Helpers
     openModals: { [key: number]: boolean } = {};
