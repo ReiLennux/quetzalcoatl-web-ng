@@ -1,6 +1,6 @@
 export interface Provider {
     proveedorId: number;
-    nombre: string;
+    nombre: string; //
     tipo: string;
     direccion: string;
     telefono: string;

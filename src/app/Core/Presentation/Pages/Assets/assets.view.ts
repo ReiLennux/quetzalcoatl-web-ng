@@ -37,6 +37,16 @@ export class AssetsViewComponent implements OnInit {
     });
   }
 
+  getEstado(estatus: string): string {
+    if (estatus === '1') {
+      return "Activo";
+    } else if (estatus === '2') {
+      return "Inactivo";
+    } else {
+      return "Dado de Baja"; // Or handle other statuses as needed
+    }
+  }
+
   deleteAsset(id: number) {
     // Proceder con la eliminación directamente, sin confirmación aquí
     this.deleteUseCase.execute(id).pipe(

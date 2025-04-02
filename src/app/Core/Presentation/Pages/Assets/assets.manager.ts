@@ -139,7 +139,6 @@ export class AssetsManagerComponent implements OnInit {
     return '';
   }
   
-
   onSubmit() {
     console.log(this.assetForm.value);
   

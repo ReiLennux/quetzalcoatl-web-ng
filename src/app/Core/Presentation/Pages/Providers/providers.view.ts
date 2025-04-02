@@ -60,6 +60,29 @@ export class ProvidersViewComponent implements OnInit {
     });
   }
 
+  getEstado(estatus: string): string {
+    if (estatus === '1') {
+      return "Activo";
+    } else if (estatus === '2') {
+      return "Inactivo";
+    } else {
+      return "Dado de Baja"; // Or handle other statuses as needed
+    }
+  }
+
+    getType(id: string): string {
+      if (id === '1') {
+        return 'Equipamiento';
+      }
+      if (id === '2'){
+        return 'Servicios'
+      }
+      if (id === '3'){
+        return 'Materia Prima'
+      }
+      return 'Sin especificar'
+    }
+
   confirmGeneration(event: any, providerId: number) {
     this.confirmationStatus[providerId] = event.target.value === 'CONFIRMAR';
   }

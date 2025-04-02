@@ -40,6 +40,16 @@ export class SubsidiariesViewComponent implements OnInit {
     });
   }
 
+  getEstado(estatus: string): string {
+    if (estatus === '1') {
+      return "Activo";
+    } else if (estatus === '2') {
+      return "Inactivo";
+    } else {
+      return "Dado de Baja"; // Or handle other statuses as needed
+    }
+  }
+
   deleteSubsidiary(subsidiary: Subsidiary) {
     this.deleteUseCase.execute(subsidiary.sucursalId).pipe(
       catchError(error => {

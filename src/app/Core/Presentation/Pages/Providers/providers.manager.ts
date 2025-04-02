@@ -19,8 +19,9 @@ export class ProvidersManagerComponent implements OnInit {
     { value: 3, label: 'Suspendido' }
   ];
   types = [
-    { value: 1, label: 'Fiscal' },
-    { value: 2, label: 'Natural' }
+    { value: 1, label: 'Equipamiento' },
+    { value: 2, label: 'Servicios' },
+    { value: 3, label: 'Materia Prima'}
   ];
 
   constructor(
