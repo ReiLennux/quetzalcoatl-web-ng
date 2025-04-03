@@ -143,6 +143,9 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
     };
     const formValue = this.subsidiaryForm.value;
 
+  
+    if (this.id > 0) {
+      
       // Compara los valores actuales del formulario con los valores iniciales
   const isFormUnchanged = JSON.stringify(formValue) === JSON.stringify(this.initialFormValue);
 
@@ -156,8 +159,6 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
     });
     return;
   }
-  
-    if (this.id > 0) {
       this.putUseCase.execute(formValue).subscribe(() => {
         Swal.fire({ title: 'Sucursal actualizada!', icon: 'success', confirmButtonText: 'Aceptar' });
         this.router.navigate(['/subsidiaries']);
