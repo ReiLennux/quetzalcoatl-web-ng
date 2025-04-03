@@ -34,19 +34,19 @@
 
                 <div id="map" class="h-60 w-full mb-4 rounded-lg border col-span-2 overflow-hidden"></div>
 
-                <app-g-text 
+                <app-g-date 
                 formControlName="fechaAlta" 
                 name="fechaAlta" 
                 label="Fecha de inicio" 
                 type="date"
                 [validation]="subsidiaryForm.get('fechaAlta')!.invalid && subsidiaryForm.get('fechaAlta')!.touched"
                 [errorMessage]="getErrorMessage('fechaAlta')">
-            </app-g-text>
-                <app-g-text formControlName="fechaBaja" name="fechaBaja" label="Fecha de termino" type="date"
+            </app-g-date>
+                <app-g-date formControlName="fechaBaja" name="fechaBaja" label="Fecha de termino" type="date"
                     [validation]="subsidiaryForm.get('fechaBaja')!.invalid && subsidiaryForm.get('fechaBaja')!.touched"
                     [errorMessage]="getErrorMessage('fechaBaja')" [readOnly]="id<=0 ? true : false"
                     [disabled]="id<=0 ? true : false">
-                </app-g-text>
+                </app-g-date>
 
                 <div class="self-center col-span-2">
                     <app-g-select formControlName="estatus" name="estatus" label="estatus" [options]="statuses"

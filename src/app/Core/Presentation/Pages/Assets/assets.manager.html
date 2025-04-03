@@ -40,26 +40,26 @@
                     [validation]="assetForm.get('descripcion')!.invalid && assetForm.get('descripcion')!.touched"
                     [errorMessage]="getErrorMessage('descripcion')">
                 </app-g-text-area>
-                <app-g-text 
+                <app-g-date 
                 class="col-span-2"
                 formControlName="fechaCompra" 
                 name="fechaCompra" 
-                label="fecha de Compra" 
+                label="Fecha de Compra"
                 type="date"
-                placeholder="SB-1234532EE"
+                placeholder="Seleccione una fecha"
                 [validation]="assetForm.get('fechaCompra')!.invalid && assetForm.get('fechaCompra')!.touched"
                 [errorMessage]="getErrorMessage('fechaCompra')">
-            </app-g-text>
+              </app-g-date>
                 <div class="col-span-2 grid grid-cols-2 grid-rows-1">
-                    <app-g-text 
+                    <app-g-date
                         formControlName="fechaAlta" 
                         name="fechaAlta" 
                         label="Fecha de inicio" 
                         type="date"
                         [validation]="assetForm.get('fechaAlta')!.invalid && assetForm.get('fechaAlta')!.touched"
                         [errorMessage]="getErrorMessage('fechaAlta')">
-                    </app-g-text>
-                    <app-g-text 
+                    </app-g-date>
+                    <app-g-date 
                         formControlName="fechaBaja" 
                         name="fechaBaja" 
                         label="Fecha de termino" 
@@ -69,7 +69,7 @@
                         [readOnly]="id<=0 ? true : false"
                         [disabled]="id<=0 ? true : false"
                         >
-                    </app-g-text>
+                    </app-g-date>
                 </div>
                 <div class="col-span-2 grid gap-3 grid-cols-2 grid-rows-1">
                     <app-g-select 

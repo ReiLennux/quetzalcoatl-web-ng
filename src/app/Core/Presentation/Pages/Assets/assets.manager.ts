@@ -57,7 +57,7 @@ export class AssetsManagerComponent implements OnInit {
       const id = params.get('id');
       if (id) {
         this.id = +id;
-        this.getByIdUseCase.execute(this.id).subscribe((data: Asset) => {
+        this.getByIdUseCase.execute(this.id).subscribe((data: any) => {
           // Patch the form values based on the response data
           this.assetForm.patchValue({
             activoFijoId: data.activoFijoId,
@@ -65,8 +65,8 @@ export class AssetsManagerComponent implements OnInit {
             descripcion: data.descripcion,
             serial: data.serial,
             fechaCompra: new Date(data.fechaAlta),
-            proveedorID: data.proveedor,
-            sucursalID: data.sucursal,
+            proveedorID: data.proveedorID,
+            sucursalID: data.sucursalID,
             fechaAlta: new Date(data.fechaAlta),
             fechaBaja: data.fechaBaja ? new Date(data.fechaBaja) : null,
             estatus: data.estatus
