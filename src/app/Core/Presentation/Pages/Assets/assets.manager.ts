@@ -48,7 +48,7 @@ export class AssetsManagerComponent implements OnInit {
       sucursalID: [null, Validators.required], // Sucursal obligatoria
       fechaAlta: ['', Validators.required], // Fecha de alta obligatoria
       fechaBaja: [''], // Fecha de baja (opcional)
-      estatus: ['', Validators.required] // Estatus obligatorio
+      estatus: ['1', Validators.required] // Estatus obligatorio
     });
   }
 

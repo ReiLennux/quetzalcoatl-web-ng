@@ -50,7 +50,7 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
       longitud: [null, [Validators.required]],
       fechaAlta: ['', [Validators.required]], 
       fechaBaja: [null],
-      estatus: ['', [Validators.required]]
+      estatus: ['1', [Validators.required]]
     });
   }
 
@@ -113,17 +113,24 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
 
   obtenerdireccion(lat: number, lng: number): void {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+    
     this.http.get<any>(url).subscribe((data) => {
       this.subsidiaryForm.patchValue({
-        direccion: data.display_name || '',
-        ciudad: data.address.city || data.address.town || '',
-        estado: data.address.state || '',
-        pais: data.address.country || '',
+        direccion: this.decodeHTMLEntities(data.display_name || ''),
+        ciudad: this.decodeHTMLEntities(data.address.city || data.address.town || ''),
+        estado: this.decodeHTMLEntities(data.address.state || ''),
+        pais: this.decodeHTMLEntities(data.address.country || ''),
         codigoPostal: data.address.postcode || ''
       });
     });
   }
 
+  private decodeHTMLEntities(text: string): string {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = text;
+    return txt.value;
+  }
+  
   onSubmit() {
     if (this.subsidiaryForm.invalid) {
             this.subsidiaryForm.markAllAsTouched();

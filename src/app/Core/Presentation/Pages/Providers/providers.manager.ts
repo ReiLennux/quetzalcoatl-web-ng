@@ -44,7 +44,7 @@ export class ProvidersManagerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       fechaAlta: ['', Validators.required],  // Necesitaría un formateo específico para fechas
       fechaBaja: [''],  // Opcional
-      estatus: ['', Validators.required]
+      estatus: ['1', Validators.required]
     });
   }
 

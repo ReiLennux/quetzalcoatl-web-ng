@@ -26,6 +26,7 @@ import { GTextAreaInput } from './Core/Presentation/Components/inputs/g-text-are
 import { AssetsViewComponent } from './Core/Presentation/Pages/Assets/assets.view';
 import { AssetsManagerComponent } from './Core/Presentation/Pages/Assets/assets.manager';
 import { GDateInput } from './Core/Presentation/Components/inputs/g-date/g-date.input';
+import { DecodeHtmlPipe } from './Core/Data/Repositories/decode-html.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { GDateInput } from './Core/Presentation/Components/inputs/g-date/g-date.
     GTextAreaInput,
     AssetsViewComponent,
     AssetsManagerComponent,
-    GDateInput
+    GDateInput,
+    DecodeHtmlPipe
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,7 @@ import { GDateInput } from './Core/Presentation/Components/inputs/g-date/g-date.
       multi: true // Permite que puedas agregar múltiples interceptores si es necesario
     }
   ],
+  exports: [DecodeHtmlPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
