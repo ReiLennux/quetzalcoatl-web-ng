@@ -18,7 +18,7 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
   map: any;
   marker: any;
   L: any;
-
+  initialFormValue: any
   statuses = [
     { value: 1, label: 'Activo' },
     { value: 2, label: 'Inactivo' },
@@ -69,6 +69,7 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
         this.GetUseCase.execute(this.id).subscribe((data: any) => {
           const subsidiaryData = data as Subsidiary;
           this.subsidiaryForm.patchValue(subsidiaryData);
+          this.initialFormValue = { ...subsidiaryData };  // Guarda los valores iniciales
         });
       }
     });
@@ -141,6 +142,21 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
       return
     };
     const formValue = this.subsidiaryForm.value;
+
+      // Compara los valores actuales del formulario con los valores iniciales
+  const isFormUnchanged = JSON.stringify(formValue) === JSON.stringify(this.initialFormValue);
+
+  if (isFormUnchanged) {
+    Swal.fire({
+      title: 'No se realizaron cambios.',
+      icon: 'info',
+      confirmButtonText: 'Aceptar',
+    }).then(() => {
+      this.router.navigate(['/subsidiaries']);  // Redirige a la página principal
+    });
+    return;
+  }
+  
     if (this.id > 0) {
       this.putUseCase.execute(formValue).subscribe(() => {
         Swal.fire({ title: 'Sucursal actualizada!', icon: 'success', confirmButtonText: 'Aceptar' });

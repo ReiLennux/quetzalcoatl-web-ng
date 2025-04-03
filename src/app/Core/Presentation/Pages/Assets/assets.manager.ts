@@ -27,6 +27,8 @@ export class AssetsManagerComponent implements OnInit {
     { value: 2, label: 'Inactivo' },
     { value: 3, label: 'Dado de baja' }
   ];
+  initialFormValue: any
+
 
   constructor(
     private fb: FormBuilder,
@@ -71,6 +73,7 @@ export class AssetsManagerComponent implements OnInit {
             fechaBaja: data.fechaBaja ? new Date(data.fechaBaja) : null,
             estatus: data.estatus
           });
+          this.initialFormValue = { ...this.assetForm };  // Guarda los valores iniciales
         });
       }
     });
@@ -149,6 +152,22 @@ export class AssetsManagerComponent implements OnInit {
     }
   
     const formValue = { ...this.assetForm.value };
+
+              // Compara los valores actuales del formulario con los valores iniciales
+    
+          const isFormUnchanged = JSON.stringify(this.assetForm.value) === JSON.stringify(this.initialFormValue.value);
+        
+          if (isFormUnchanged) {
+            Swal.fire({
+              title: 'No se realizaron cambios.',
+              icon: 'info',
+              confirmButtonText: 'Aceptar',
+            }).then(() => {
+              this.router.navigate(['/assets']);  // Redirige a la página principal
+            });
+            return;
+          }
+
     formValue.fechaCompra = formValue.fechaCompra ? new Date(formValue.fechaCompra).toISOString() : null;
     formValue.fechaAlta = formValue.fechaAlta ? new Date(formValue.fechaAlta).toISOString() : null;
   

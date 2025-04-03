@@ -24,6 +24,8 @@ export class ProvidersManagerComponent implements OnInit {
     { value: 3, label: 'Materia Prima'}
   ];
 
+  initialFormValue: any
+
   constructor(
     private fb: FormBuilder,
     private postUseCase: PostUseCase,
@@ -66,6 +68,7 @@ export class ProvidersManagerComponent implements OnInit {
             fechaBaja: data.fechaBaja,
             estatus: data.estatus
           });
+          this.initialFormValue = { ...this.providerForm };  // Guarda los valores iniciales
         });
       }
     });
@@ -103,6 +106,20 @@ export class ProvidersManagerComponent implements OnInit {
     }
 
     const formData = this.providerForm.value;
+          // Compara los valores actuales del formulario con los valores iniciales
+
+      const isFormUnchanged = JSON.stringify(formData.value) === JSON.stringify(this.initialFormValue.value);
+    
+      if (isFormUnchanged) {
+        Swal.fire({
+          title: 'No se realizaron cambios.',
+          icon: 'info',
+          confirmButtonText: 'Aceptar',
+        }).then(() => {
+          this.router.navigate(['/providers']);  // Redirige a la página principal
+        });
+        return;
+      }
 
     if (this.id > 0) {
       this.putUseCase.execute(formData).subscribe(
