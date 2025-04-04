@@ -23,14 +23,13 @@ export class AuthInterceptor implements HttpInterceptor {
       authRequest = request.clone({ headers });
     }
 
+    
     return next.handle(authRequest).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           console.warn('Token expirado, redirigiendo al login...');
-
           // Elimina el token del almacenamiento
           this.storageService.clearSession();
-
           // Muestra alerta de token expirado
           Swal.fire({
             title: 'Token expirado',
@@ -41,7 +40,6 @@ export class AuthInterceptor implements HttpInterceptor {
             this.router.navigate(['/login']);
           });
         }
-
         return throwError(() => error);
       })
     );

@@ -11,7 +11,6 @@ import { Provider } from '../../../Domain/Models/provider.model';
   templateUrl: './providers.manager.html',
 })
 export class ProvidersManagerComponent implements OnInit {
-  providerForm: FormGroup;
   id = 0;
   statuses = [
     { value: 1, label: 'Activo' },
@@ -26,6 +25,8 @@ export class ProvidersManagerComponent implements OnInit {
 
   initialFormValue: any
 
+
+  providerForm: FormGroup;
   constructor(
     private fb: FormBuilder,
     private postUseCase: PostUseCase,
