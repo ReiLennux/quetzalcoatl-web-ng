@@ -66,15 +66,15 @@
                     </app-g-select>
                 </div>
                 <div class="col-span-2 grid grid-cols-2 grid-rows-1">
-                    <app-g-date 
+                    <app-g-text
                         formControlName="fechaAlta" 
                         name="fechaAlta" 
                         label="Fecha de inicio" 
                         type="date"
                         [validation]="providerForm.get('fechaAlta')!.invalid && providerForm.get('fechaAlta')!.touched"
                         [errorMessage]="getErrorMessage('fechaAlta')">
-                    </app-g-date>
-                    <app-g-date 
+                    </app-g-text>
+                    <app-g-text
                         formControlName="fechaBaja" 
                         name="fechaBaja" 
                         label="Fecha de termino" 
@@ -84,7 +84,7 @@
                         [readOnly]="id<=0 ? true : false"
                         [disabled]="id<=0 ? true : false"
                         >
-                    </app-g-date>
+                    </app-g-text>
                 </div>
                 
             </div>
