@@ -34,6 +34,6 @@ export class StorageService {
   }
 
   isAuthenticated(): boolean {
-    return true//this.cookieService.check('authToken');
+    return this.cookieService.check('authToken');
   }
 }

@@ -153,7 +153,11 @@ export class AssetsManagerComponent implements OnInit {
   
     const formValue = { ...this.assetForm.value };
 
-              // Compara los valores actuales del formulario con los valores iniciales
+    formValue.fechaCompra = formValue.fechaCompra ? new Date(formValue.fechaCompra).toISOString() : null;
+    formValue.fechaAlta = formValue.fechaAlta ? new Date(formValue.fechaAlta).toISOString() : null;
+  
+    if (this.id > 0) {
+                    // Compara los valores actuales del formulario con los valores iniciales
     
           const isFormUnchanged = JSON.stringify(this.assetForm.value) === JSON.stringify(this.initialFormValue.value);
         
@@ -167,11 +171,6 @@ export class AssetsManagerComponent implements OnInit {
             });
             return;
           }
-
-    formValue.fechaCompra = formValue.fechaCompra ? new Date(formValue.fechaCompra).toISOString() : null;
-    formValue.fechaAlta = formValue.fechaAlta ? new Date(formValue.fechaAlta).toISOString() : null;
-  
-    if (this.id > 0) {
       formValue.activoFijoId = this.id;
       formValue.fechaBaja = formValue.fechaBaja ? new Date(formValue.fechaBaja).toISOString() : null;
   

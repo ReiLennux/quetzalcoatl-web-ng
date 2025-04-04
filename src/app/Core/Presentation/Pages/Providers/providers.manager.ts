@@ -107,7 +107,10 @@ export class ProvidersManagerComponent implements OnInit {
     }
 
     const formData = this.providerForm.value;
-          // Compara los valores actuales del formulario con los valores iniciales
+
+
+    if (this.id > 0) {
+                // Compara los valores actuales del formulario con los valores iniciales
 
       const isFormUnchanged = JSON.stringify(formData.value) === JSON.stringify(this.initialFormValue.value);
     
@@ -121,8 +124,6 @@ export class ProvidersManagerComponent implements OnInit {
         });
         return;
       }
-
-    if (this.id > 0) {
       this.putUseCase.execute(formData).subscribe(
         () => this.handleSuccess('Actualización exitosa'),
         () => this.handleError()

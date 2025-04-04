@@ -54,12 +54,15 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  async ngAfterViewInit() {
-    if (typeof window !== 'undefined') {
-      this.L = await import('leaflet');
-      this.initializeMap();
-    }
-  }
+async ngAfterViewInit() {
+
+  const leaflet = await import('leaflet');
+
+  this.L = leaflet.default || leaflet;
+
+  this.initializeMap();
+
+}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -143,6 +146,9 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
     };
     const formValue = this.subsidiaryForm.value;
 
+  
+    if (this.id > 0) {
+      
       // Compara los valores actuales del formulario con los valores iniciales
   const isFormUnchanged = JSON.stringify(formValue) === JSON.stringify(this.initialFormValue);
 
@@ -156,8 +162,6 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
     });
     return;
   }
-  
-    if (this.id > 0) {
       this.putUseCase.execute(formValue).subscribe(() => {
         Swal.fire({ title: 'Sucursal actualizada!', icon: 'success', confirmButtonText: 'Aceptar' });
         this.router.navigate(['/subsidiaries']);
