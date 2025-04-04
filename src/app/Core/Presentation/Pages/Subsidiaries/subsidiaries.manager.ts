@@ -30,13 +30,13 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
   ];
   
   constructor(
-    private fb: FormBuilder, 
-    private GetUseCase: GetByIdUseCase,
-    private putUseCase: PutUseCase,
-    private postUseCase: PostUseCase,
-    private router: Router, 
-    private route: ActivatedRoute,
-    private http: HttpClient
+    private readonly fb: FormBuilder, 
+    private readonly GetUseCase: GetByIdUseCase,
+    private readonly putUseCase: PutUseCase,
+    private readonly postUseCase: PostUseCase,
+    private readonly router: Router, 
+    private readonly route: ActivatedRoute,
+    private readonly http: HttpClient
   ) {
     this.subsidiaryForm = this.fb.group({
       sucursalId: [0],
@@ -92,8 +92,8 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
 
   private getInitialCoordinates(): [number, number] {
     return [
-      this.subsidiaryForm.value.latitud || 19.432608,
-      this.subsidiaryForm.value.longitud || -99.133209
+      this.subsidiaryForm.value.latitud ?? 19.432608,
+      this.subsidiaryForm.value.longitud ?? -99.133209
     ];
   }
 
@@ -117,11 +117,11 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
     
     this.http.get<any>(url).subscribe((data) => {
       this.subsidiaryForm.patchValue({
-        direccion: this.decodeHTMLEntities(data.display_name || ''),
-        ciudad: this.decodeHTMLEntities(data.address.city || data.address.town || ''),
-        estado: this.decodeHTMLEntities(data.address.state || ''),
-        pais: this.decodeHTMLEntities(data.address.country || ''),
-        codigoPostal: data.address.postcode || ''
+        direccion: this.decodeHTMLEntities(data.display_name ?? ''),
+        ciudad: this.decodeHTMLEntities(data.address.city ?? data.address.town ?? ''),
+        estado: this.decodeHTMLEntities(data.address.state ?? ''),
+        pais: this.decodeHTMLEntities(data.address.country ?? ''),
+        codigoPostal: data.address.postcode ?? ''
       });
     });
   }

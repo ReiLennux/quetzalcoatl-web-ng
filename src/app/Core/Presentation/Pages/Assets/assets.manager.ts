@@ -31,14 +31,14 @@ export class AssetsManagerComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private providerGetUseCase: GetUseCase,
-    private subsidiaryGetUseCase: GetSubsidiariesUseCase,
-    private getByIdUseCase: GetByIdUseCase,
-    private postUseCase: PostUseCase,
-    private putUseCase: PutUseCase
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private readonly providerGetUseCase: GetUseCase,
+    private readonly subsidiaryGetUseCase: GetSubsidiariesUseCase,
+    private readonly getByIdUseCase: GetByIdUseCase,
+    private readonly postUseCase: PostUseCase,
+    private readonly putUseCase: PutUseCase
   ) {
     this.assetForm = this.fb.group({
       activoFijoId: [], // Asumí que el ID puede no ser requerido en la creación

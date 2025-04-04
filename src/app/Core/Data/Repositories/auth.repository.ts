@@ -8,9 +8,9 @@ import { Auth, AuthResponse } from '../../../Core/Domain/Models/auth.model';
   providedIn: 'root',
 })
 export class AuthRepository {
-  private apiUrl = environment.API_URL;
+  private readonly apiUrl = environment.API_URL;
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   login(userData: Auth): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, userData);

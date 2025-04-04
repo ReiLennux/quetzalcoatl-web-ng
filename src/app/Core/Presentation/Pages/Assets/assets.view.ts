@@ -17,8 +17,8 @@ export class AssetsViewComponent implements OnInit {
   isLoading = true;
 
   constructor(
-    private getUseCase: GetUseCase,
-    private deleteUseCase: DeleteUseCase
+    private readonly getUseCase: GetUseCase,
+    private readonly deleteUseCase: DeleteUseCase
   ) { }
 
   ngOnInit() {

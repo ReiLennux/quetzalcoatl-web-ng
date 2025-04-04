@@ -14,13 +14,13 @@
                     aria-label="Tabla de datos de Activos Fijos">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th class="px-6 py-3">ID</th>
-                            <th class="px-6 py-3">Serial</th>
-                            <th class="px-6 py-3">Fecha Alta</th>
-                            <th class="px-6 py-3">Estado</th>
-                            <th class="px-6 py-3">Detalles</th>
-                            <th class="px-6 py-3">Editar</th>
-                            <th class="px-6 py-3">Eliminar</th>
+                            <th id="id" class="px-6 py-3">ID</th>
+                            <th id="serial" class="px-6 py-3">Serial</th>
+                            <th id="fechaAlta" class="px-6 py-3">Fecha Alta</th>
+                            <th id="estado" class="px-6 py-3">Estado</th>
+                            <th id="detalles" class="px-6 py-3">Detalles</th>
+                            <th id="Editar" class="px-6 py-3">Editar</th>
+                            <th id="Eliminar" class="px-6 py-3">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +70,7 @@
                                                 </p>
                                                 <p class="text-gray-900 dark:text-white">Sucursal: {{asset.sucursal}}
                                                 </p>
-                                                <p class="text-gray-900 dark:text-white">Fecha Baja: {{asset.fechaBaja || 'Actualmente Activo'}}
+                                                <p class="text-gray-900 dark:text-white">Fecha Baja: {{asset.fechaBaja ?? 'Actualmente Activo'}}
                                                 </p>
                                             </div>
                                             <div

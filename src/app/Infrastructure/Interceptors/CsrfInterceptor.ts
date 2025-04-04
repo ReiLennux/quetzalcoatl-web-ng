@@ -21,6 +21,6 @@ export class CsrfInterceptor implements HttpInterceptor {
 
   // Obtener el token CSRF de la cookie o de un meta tag
   private getCsrfToken(): string | null {
-    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || null;
+    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? null;
   }
 }

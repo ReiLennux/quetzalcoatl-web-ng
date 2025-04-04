@@ -35,7 +35,7 @@ export class GTextAreaInput implements ControlValueAccessor{
   };
 
   writeValue(value: string): void {
-    this.value = value || '';
+    this.value = value ?? '';
   }
 
   registerOnChange(fn: () => void): void {

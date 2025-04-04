@@ -28,12 +28,12 @@ export class ProvidersManagerComponent implements OnInit {
 
   providerForm: FormGroup;
   constructor(
-    private fb: FormBuilder,
-    private postUseCase: PostUseCase,
-    private getbyIdUseCase: GetById,
-    private putUseCase: PutUseCase,
-    private router: Router,
-    private route: ActivatedRoute
+    private readonly fb: FormBuilder,
+    private readonly postUseCase: PostUseCase,
+    private readonly getbyIdUseCase: GetById,
+    private readonly putUseCase: PutUseCase,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {
     // Actualización del FormGroup según el modelo Provider
     this.providerForm = this.fb.group({

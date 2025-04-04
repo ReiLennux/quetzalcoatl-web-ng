@@ -41,7 +41,7 @@ export class ProvidersViewComponent implements OnInit {
         return of([] as Provider[]);
       })
     ).subscribe((data: Provider[]) => {
-      this.providers = data || [];
+      this.providers = data ?? [];
       this.totalItems = this.providers.length
     });
     this.isLoading = false;

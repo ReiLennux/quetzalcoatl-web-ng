@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private storageService: StorageService,
-    @Inject(PLATFORM_ID) private platformId: object
+    @Inject(PLATFORM_ID) private readonly platformId: object
   ) {}
 
   canActivate(): Observable<boolean> {

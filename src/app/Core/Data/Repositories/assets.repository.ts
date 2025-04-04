@@ -10,9 +10,9 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class AssetsRepository  {
-    private apiUrl = environment.API_URL;
+    private readonly apiUrl = environment.API_URL;
 
-    constructor(private http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
     getAssets() : Observable<Asset[]> {
         return this.http.get<Asset[]>(`${this.apiUrl}/gateway/activofijo`);

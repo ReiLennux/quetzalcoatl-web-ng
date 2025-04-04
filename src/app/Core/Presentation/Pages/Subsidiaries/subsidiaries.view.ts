@@ -17,8 +17,8 @@ export class SubsidiariesViewComponent implements OnInit {
   isLoading = true;
 
   constructor(
-    private getUseCase: GetUseCase,
-    private deleteUseCase: DeleteUseCase
+    private readonly getUseCase: GetUseCase,
+    private readonly deleteUseCase: DeleteUseCase
   ) { }
 
   ngOnInit() {
@@ -37,7 +37,7 @@ export class SubsidiariesViewComponent implements OnInit {
         return of([] as Subsidiary[]);
       })
     ).subscribe((data: Object | Subsidiary[]) => {
-      this.subsidiaries = (data as Subsidiary[]) || [];
+      this.subsidiaries = (data as Subsidiary[]) ?? [];
       this.totalItems = this.subsidiaries.length
     });
     this.isLoading = false;

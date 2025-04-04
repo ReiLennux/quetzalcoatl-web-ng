@@ -10,6 +10,6 @@ export class DecodeHtmlPipe implements PipeTransform {
     const parser = new DOMParser();
     const decodedString = parser.parseFromString(value, 'text/html').body.textContent;
     
-    return decodedString || value;
+    return decodedString ?? value;
   }
 }

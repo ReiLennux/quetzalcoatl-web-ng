@@ -8,9 +8,9 @@ import { environment } from '../../../../environments/environments';
   providedIn: 'root',
 })
 export class ProvidersRepository {
-    private apiUrl = environment.API_URL;
+    private readonly apiUrl = environment.API_URL;
 
-    constructor(private http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
     getProviders(): Observable<Provider[]> {
         return this.http.get<Provider[]>(`${this.apiUrl}/gateway/proveedores`);

@@ -15,9 +15,9 @@ export class LoginViewComponent {
   errorMessage: string = "";
 
   constructor(
-    private fb: FormBuilder,
-    private loginUseCase: LoginUseCase,
-    private router: Router
+    private readonly fb: FormBuilder,
+    private readonly loginUseCase: LoginUseCase,
+    private readonly router: Router
   ) {
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
