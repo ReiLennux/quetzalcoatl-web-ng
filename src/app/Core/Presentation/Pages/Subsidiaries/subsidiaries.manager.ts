@@ -54,10 +54,15 @@ export class SubsidiariesManagerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  async ngAfterViewInit() {
-      this.L = await import('leaflet');
-      this.initializeMap();
-  }
+async ngAfterViewInit() {
+
+  const leaflet = await import('leaflet');
+
+  this.L = leaflet.default || leaflet;
+
+  this.initializeMap();
+
+}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
